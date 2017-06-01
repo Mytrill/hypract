@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "module": "commonjs",
+    "jsx": "react",
+    "jsxFactory": "h",
+    // needed for string.startsWith and string.include; TODO fix build process later!
+    "target": "es6",
+    "experimentalDecorators": true,
+    "allowJs": true
+  },
+  "include": [
+    "src/*.ts",
+    "src/*.tsx"
+  ]
+}
