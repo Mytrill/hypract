@@ -1,8 +1,8 @@
 module.exports = {
   devtool: 'inline-source-map',
-  entry: ['./src/client'],
+  entry: ['./todo'],
   output: {
-    path: __dirname + '/examples/public',
+    path: __dirname + '/public',
     filename: 'bundle.js'
   },
   resolve: {
@@ -18,6 +18,7 @@ module.exports = {
     ]
   },
   externals: {
-    mdl: 'mdl'
+    mdl: 'mdl',
+    firebase: 'firebase'
   }
 };

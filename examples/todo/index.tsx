@@ -1,7 +1,5 @@
-import start from '../../src/start';
+import hypract, { App, SimpleType, factories } from '../../src';
 import firebaseConfig from '../firebaseConfig';
-
-import { App, SimpleType } from '../../src/types';
 
 const app: App = {
   config: {
@@ -18,5 +16,21 @@ const app: App = {
       }
     }
   },
-  
+  pages: {
+    'Index': {
+      title: ':app - Index',
+      index: true,
+      components: ['Todo.sync.all'],
+    }
+  },
+  components: {
+    'Todo.sync.all': factories.Components.sync('Todo.all', 'Todo.card'),
+    'Todo.card': factories.Components.card('Todo', ['title']),
+  },
+  queries: {
+    'Todo.all': { entity: 'Todo' },
+    'Todo.one': { entity: 'Todo', whereIdEquals: ':id' }
+  }
 }
+
+hypract(app);

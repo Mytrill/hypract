@@ -1,1 +1,5 @@
 node_modules
+npm-debug.log
+examples/npm-debug.log
+examples/firebase-debug.log
+examples/public/bundle.js

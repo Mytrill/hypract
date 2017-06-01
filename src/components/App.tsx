@@ -23,10 +23,14 @@ export class App extends Component<AppProps, AppState> {
   }
 
   showMessage(message: string) {
-    this.snackbar.MaterialSnackbar.showSnackbar({
-      message,
-      timeout: 2000,
-    });
+    if (this.snackbar) {
+      this.snackbar.MaterialSnackbar.showSnackbar({
+        message,
+        timeout: 2000,
+      });
+    } else {
+      console.log('Trying to show message but no snackbar yet! Message:\n' + message);
+    }
   }
 
   getChildContext(): AppContext {
