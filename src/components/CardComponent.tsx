@@ -86,6 +86,10 @@ export class CardComponent extends Component<CardProps, CardState> {
 
     const entity = resolveEntity(props.config.entity, context.app);
 
+    if(!value) {
+      return <div></div>;
+    }
+
     if(isSingleResult(value)) {
       return renderSingleValue(entity, props.config, value);
     } else {

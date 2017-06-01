@@ -21,14 +21,14 @@ export interface Config {
   /** The widget (name or actual implementation) to use as layout for this app, if any. */
   layout?: string | Component;
   /** The firebase configuration for this app. */
-  firebaseConfig: FirebaseConfig;
+  firebaseConfig: FirebaseConfig | string;
 }
 
 /** The configuration for Firebase. */
 export interface FirebaseConfig {
-  apiKey: string,
-  authDomain: string,
+  apiKey?: string,
+  authDomain?: string,
   databaseURL: string,
-  storageBucket: string,
-  messagingSenderId: string,
+  storageBucket?: string,
+  messagingSenderId?: string,
 }
