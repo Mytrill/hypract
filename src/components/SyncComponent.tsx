@@ -44,13 +44,12 @@ export class SyncComponent extends PreactComponent<ComponentProps, ComponentStat
       return <Spinner />;
     }
 
-
     const childProps = Object.assign({}, props.props);
 
     // add the results from the query, if any
     if(config.query && typeof state.queryResult !== 'undefined') {
       const targetProp = props.config.targetProp || 'value';
-      childProps[targetProp] = state.queryResult.data;
+      childProps[targetProp] = state.queryResult;
     }
 
     // add extra props

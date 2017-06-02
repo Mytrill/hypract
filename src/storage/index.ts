@@ -1,9 +1,12 @@
 import firebase from 'firebase';
 
-import { observable, ObservableMap } from 'mobx';
+import { computed, observable, ObservableMap } from 'mobx';
 
 import { resolveEntity } from '../utils';
 import { App, Entity, Query, QueryParameters, Model, ComponentProps } from '../types';
+
+import * as utils from './utils';
+export { utils };
 
 /**
  * Generate a new unique key using Firebase's algorithm.
@@ -68,11 +71,9 @@ export interface ResolvedQuery {
   whereIdEquals?: string;
 };
 
+/** The result of a query. */
 export interface QueryResult {
-  /** The result of the query, not set if failed. */
-  data?: any;
-  /** Set if an error occured. */
-  error?: string;
+  data: Array<object>;
 }
 
 export const resolve = (app: App, query: Query, props: ComponentProps): ResolvedQuery => {
@@ -130,22 +131,26 @@ export const create = (entity: Entity, value: object): Promise<CreateResult> => 
 // 
 // /////////////////////////////////////////////////////////////////////////////////////
 
+/** the @computed query results. */
+const results = {};
 
 const processSnapshot = (snapshot: firebase.database.DataSnapshot, query: ResolvedQuery): QueryResult => {
   const value = snapshot.val();
 
   if(typeof query.whereIdEquals === 'string') {
     if(!value) {
-      return { data: null };
+      return { data: [] };
     }
 
-    let result = Object.assign({ id: query.whereIdEquals }, value);
+    const id = query.whereIdEquals;
+    let result = Object.assign({ id }, value);
     // return the reactive value.
     result = synchronizeInStore(query.entity, query.whereIdEquals, result);
-    return { data: result };
+
+    return { data: [result] };
   } else {
     if(!value) {
-      return { data: {} };
+      return { data: [] };
     }
 
     Object.keys(value).forEach(key => {
@@ -153,8 +158,27 @@ const processSnapshot = (snapshot: firebase.database.DataSnapshot, query: Resolv
       val.id = key;
       synchronizeInStore(query.entity, key, val);
     });
-    // return the reactive value 
-    return { data: store.get(query.entity.name).toJS() };
+
+    // get or create the correct @computed function for this query
+    const entity = query.entity.name;
+    if(!results[entity]) {
+      results[entity] = {};
+    }
+
+    // the function already exists, return it!
+    if(results[entity].all) {
+      return results[entity].all;
+    }
+
+    const result = {
+      data: computed(() => {
+        return store.get(query.entity.name).values();
+      })
+    };
+
+    results[entity].all = result;
+
+    return <any> result;
   }
 }
 

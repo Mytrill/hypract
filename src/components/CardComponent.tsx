@@ -3,8 +3,9 @@ import { Card } from 'preact-mdl';
 import { observer } from 'preact-mobx';
 import { sortBy } from 'lodash';
 
-import { resolveEntity } from '../utils';
 import { AppContext } from './types';
+import { resolveEntity } from '../utils';
+import { QueryResult, utils } from '../storage';
 import { CardComponent as Config, ComponentProps, Entity, SimpleType } from '../types';
 
 export interface CardProps {
@@ -14,10 +15,6 @@ export interface CardProps {
 
 export interface CardState {
 
-}
-
-const isSingleResult = (value: object): boolean => {
-  return value['id'];
 }
 
 const renderSingleValue = (entity: Entity, config: Config, value: object): JSX.Element => {
@@ -56,7 +53,7 @@ const renderSingleValue = (entity: Entity, config: Config, value: object): JSX.E
 
   return <Card class='main-card mdl-shadow--2dp'>{children}</Card>;
 }
-
+/*
 const getTitleAttribute = (entity: Entity, attributes: Array<string>): string | null => {
   for(let key of attributes) {
     if(entity.attributes[key].type === SimpleType.TITLE) {
@@ -73,6 +70,7 @@ const sortValues = (entity: Entity, config: Config, value: object): Array<object
   // console.log('Attribute to sort by: ' + toSort + ' values: ' + JSON.stringify(values));
   return sortBy(values, toSort);
 }
+*/
 
 @observer
 export class CardComponent extends Component<CardProps, CardState> {
@@ -85,20 +83,20 @@ export class CardComponent extends Component<CardProps, CardState> {
     console.log('Rendering card for value: ' + JSON.stringify(value, null, 2));
 
     const entity = resolveEntity(props.config.entity, context.app);
-
-    if(!value) {
+    
+    if(utils.isEmpty(value)) {
       return <div></div>;
     }
-
-    if(isSingleResult(value)) {
-      return renderSingleValue(entity, props.config, value);
-    } else {
-      const children = sortValues(entity, props.config, value).map(val => {
+    
+    if(utils.isQueryResult(value)) {
+      const children = utils.toSortedArray(value, entity).map(val => {
         console.log('Rendering card for sorted value: ' + JSON.stringify(val));
         return renderSingleValue(entity, props.config, val);
       });
       return <div>{children}</div>;
     }
+
+    return renderSingleValue(entity, props.config, value);
   }
 }
 export default CardComponent;
