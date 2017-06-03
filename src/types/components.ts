@@ -1,5 +1,7 @@
 import { AnyComponent } from 'preact';
 
+import { Action } from './actions';
+import { Entity } from './model';
 import { Query } from './queries';
 
 /** All the components in this applications referenced by name. */
@@ -12,30 +14,34 @@ export type Component = CardComponent | FormComponent | PreactComponent| SyncCom
 /** Component backed by one, or multiple, material cards. type = 'Card' */
 export interface CardComponent {
   type: 'Card';
-  /** The name of the entity to edit/create. */
+  /** The name of the entity to display. */
   entity: string;
-  /** The attributes to include. */
-  attributes: Array<string>;
+  /** The attributes to include, if not set, the card tries to use the correct attributes
+   *  based on the attribute mappings of the entity. */
+  attributes?: CardAttributes;
   /** The name of the property to look into for the entity instance. defaults to 'value' */
   prop?: string;
-  // /** The widget (name or actual implementation) to use around this widget when rendering results. 
-  //  * Cannot be set if wrapperTag is set. */
-  // wrapper?: string | Component,
-  // /** The wrapper tag to use around this widget when rendering results. 
-  //  * Supports CSS selectors, e.g. 'div .result-list .highlight'
-  //  * Cannot be set if wrapper is set. */
-  // wrapperTag?: string,
-  // /** The template to render as title, may content ':prop.attribute' to render the attribute of a property. */
-  // title?: 'string';
-  // /** The content. */
-  // content?: Array<CardContent>;
 }
 
-export interface CardContent {
-  /** The template to render as content, may content ':prop.attribute' to render the attribute of a property. */
-  content: string;
-  /** true to create a collapsible section, false by default. */
-  collapsible?: boolean;
+export interface CardAttributes {
+  /** The title to display, may use :propName.attributeName to access props, or #attributeName to access an attribute of the currently displayed entity. */
+  title?: string | DataTemplate | DataResolver;
+  /** The subtitle to display, may use :propName.attributeName to access props, or #attributeName to access an attribute of the currently displayed entity. */
+  subtitle?: string | DataTemplate | DataResolver;
+  /** The text to display, may use :propName.attributeName to access props, or #attributeName to access an attribute of the currently displayed entity. */
+  supportingText?: string | DataTemplate | DataResolver;
+  /** The actions to offer on each card. */
+  actions?: Array<string | Action>,
+  /** The actions to offer in the context menu on each card. */
+  menu?: Array<string | Action>,
+}
+
+export type DataResolver = (props: ComponentProps, data: any) => string | JSX.Element;
+
+export interface DataTemplate {
+  text?: string;
+  attribute?: string;
+  pathInProps?: Array<string>;
 }
 
 /** Component type for a form. */
@@ -45,6 +51,18 @@ export interface FormComponent {
   entity: string;
   /** The attributes to edit. */
   attributes: Array<string>;
+  /** The name of the property to look into for the entity instance. defaults to 'value' */
+  prop?: string;
+}
+
+/** Component type for a list. */
+export interface ListComponent {
+  type: 'List',
+  /** The name of the entity to display. */
+  entity: string;
+  // TODO: no, we can do better than this..
+  /** The attributes to include, includes title and url attribute if not set. */
+  attributes?: Array<string>;
   /** The name of the property to look into for the entity instance. defaults to 'value' */
   prop?: string;
 }

@@ -103,8 +103,8 @@ export class GenericQueryResult implements QueryResult {
 
   list() {
     const result = store.get(this.query.entity.name).values();
-    if(this.query.entity.__titleAttribute) {
-      return sortBy(result, this.query.entity.__titleAttribute);
+    if(this.query.entity.mappings && this.query.entity.mappings.title) {
+      return sortBy(result, this.query.entity.mappings.title);
     }
     return result;
   }

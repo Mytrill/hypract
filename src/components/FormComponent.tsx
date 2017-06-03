@@ -128,10 +128,9 @@ export class FormComponent extends Component<FormProps, FormState> {
 
     const title = hasEntityInValues(props.config, props.props) ? 'Edit ' + entityName : 'Create ' + entityName;
 
-    // TODO add the title: Create/Update entity.name
     return (
       <Card class='main-card mdl-shadow--2dp' >
-        <Card.Title>{title}</Card.Title>
+        <Card.Title><Card.TitleText>{title}</Card.TitleText></Card.Title>
         <Card.Text>
           {fields}
         </Card.Text>

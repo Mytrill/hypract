@@ -18,6 +18,8 @@ export const initialize = (app: App): void => {
     }
 
     let titleAttribute = null;
+    let urlAttribute = null;
+    let descriptionAttribute = null;
     // set the attribute display name
     Object.keys(entity.attributes).forEach(attr => {
       const attribute = entity.attributes[attr];
@@ -34,9 +36,18 @@ export const initialize = (app: App): void => {
 
       if(attribute.type === SimpleType.TITLE) {
         titleAttribute = attr;
+      } else if (attribute.type === SimpleType.URL) {
+        urlAttribute = attr;
+      } else if (attribute.type === SimpleType.TEXT) {
+        descriptionAttribute = attr;
       }
     });
-    entity.__titleAttribute = titleAttribute;
+    if(!entity.mappings) {
+      entity.mappings = {};
+    }
+    entity.mappings.title = entity.mappings.title || titleAttribute;
+    entity.mappings.url = entity.mappings.url || urlAttribute;
+    entity.mappings.description = entity.mappings.description || descriptionAttribute;
   });
 }
 export default initialize;

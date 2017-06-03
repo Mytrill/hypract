@@ -10,9 +10,19 @@ export interface Entity {
   name?: string;
   /** The map of attributes by names. */
   attributes: Attributes;
-  /** The name of the title attribute, if any.
-      For internal use only, do not set. */
-  __titleAttribute?: string;
+  /** The mappings between attributes and predefined attributes, e.g. title attribute.
+   *  This information will be computed on startup and used when rendering lists or cards.
+   *  The user may override. */
+  mappings?: AttributeMappings
+}
+
+export interface AttributeMappings {
+  /** The name of the attribute to use as the title. */
+  title?: string;
+  /** The name of the attribute to use as the URL. */
+  url?: string;
+  /** The name of the atttribute to use as the description. */
+  description?: string;
 }
 
 export interface Attributes {
