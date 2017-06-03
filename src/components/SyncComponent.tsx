@@ -4,7 +4,7 @@ import { Spinner } from 'preact-mdl';
 import { observer } from 'preact-mobx';
 
 import renderComponent from '../renderComponent';
-import { read, resolve } from '../storage';
+import { query, resolve, ResolvedQuery } from '../storage';
 import { AppContext } from './types';
 import { resolveComponent, resolveEntity, resolveQuery } from '../utils';
 import { SyncComponent as Config, ComponentProps as ComponentValues } from '../types';
@@ -26,7 +26,7 @@ export interface ComponentState {
 @observer
 export class SyncComponent extends PreactComponent<ComponentProps, ComponentState> {
 
-  resolvedQuery?: object = null;
+  resolvedQuery?: ResolvedQuery = null;
   state = { loading: false };
 
   componentWillMount() {
@@ -84,8 +84,7 @@ export class SyncComponent extends PreactComponent<ComponentProps, ComponentStat
     }
     
     try {
-      const query = resolveQuery(config.query, this.context.app);
-      const resolved = resolve(this.context.app, query, props.props);
+      const resolved = resolve(this.context.app, resolveQuery(config.query, this.context.app), props.props);
 
       // if the resolved query is the same as before, no need to rerun.
       if(this.resolvedQuery && isEqual(resolved, this.resolvedQuery)) {
@@ -97,8 +96,9 @@ export class SyncComponent extends PreactComponent<ComponentProps, ComponentStat
       // not the same (or first time we query), do the query.
       this.resolvedQuery = resolved;
 
-      read(resolved)
+      query(resolved)
       .then(result => {
+        // console.log('Got result: ' + JSON.stringify(result));
         this.setState({ loading: false, queryResult: result });
       })
       .catch(error => {

@@ -5,7 +5,7 @@ import { sortBy } from 'lodash';
 
 import { AppContext } from './types';
 import { resolveEntity } from '../utils';
-import { QueryResult, utils } from '../storage';
+import { QueryResult, isQueryResult } from '../storage';
 import { CardComponent as Config, ComponentProps, Entity, SimpleType } from '../types';
 
 export interface CardProps {
@@ -53,24 +53,6 @@ const renderSingleValue = (entity: Entity, config: Config, value: object): JSX.E
 
   return <Card class='main-card mdl-shadow--2dp'>{children}</Card>;
 }
-/*
-const getTitleAttribute = (entity: Entity, attributes: Array<string>): string | null => {
-  for(let key of attributes) {
-    if(entity.attributes[key].type === SimpleType.TITLE) {
-      return key;
-    }
-  }
-
-  return null;
-}
-
-const sortValues = (entity: Entity, config: Config, value: object): Array<object> => {
-  let toSort = getTitleAttribute(entity, config.attributes) || 'id';
-  const values = Object.keys(value).map(key => value[key]);
-  // console.log('Attribute to sort by: ' + toSort + ' values: ' + JSON.stringify(values));
-  return sortBy(values, toSort);
-}
-*/
 
 @observer
 export class CardComponent extends Component<CardProps, CardState> {
@@ -80,21 +62,26 @@ export class CardComponent extends Component<CardProps, CardState> {
     const valueProp = props.config.prop || 'value';
     const value = props.props[valueProp];
 
-    console.log('Rendering card for value: ' + JSON.stringify(value, null, 2));
+    // console.log('Rendering card for value: ' + JSON.stringify(value));
 
     const entity = resolveEntity(props.config.entity, context.app);
     
-    if(utils.isEmpty(value)) {
+    // console.log('before is query result');
+    
+    if(!value) {
       return <div></div>;
     }
-    
-    if(utils.isQueryResult(value)) {
-      const children = utils.toSortedArray(value, entity).map(val => {
-        console.log('Rendering card for sorted value: ' + JSON.stringify(val));
+
+    if(isQueryResult(value)) {
+      // console.log('is query result, result: ' + JSON.stringify(value.list()));
+      const children = value.list().map(val => {
+        // console.log('Rendering card for sorted value: ' + JSON.stringify(val));
         return renderSingleValue(entity, props.config, val);
       });
       return <div>{children}</div>;
     }
+    
+    // console.log('is not query result');
 
     return renderSingleValue(entity, props.config, value);
   }

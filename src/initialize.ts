@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import { App } from './types';
+import { App, SimpleType } from './types';
 import { capitalizeFirstLetter } from './utils';
 
 /**
@@ -17,6 +17,7 @@ export const initialize = (app: App): void => {
       entity.name = key;
     }
 
+    let titleAttribute = null;
     // set the attribute display name
     Object.keys(entity.attributes).forEach(attr => {
       const attribute = entity.attributes[attr];
@@ -30,7 +31,12 @@ export const initialize = (app: App): void => {
       if(typeof attribute.nullable !== 'boolean') {
         attribute.nullable = true;
       }
+
+      if(attribute.type === SimpleType.TITLE) {
+        titleAttribute = attr;
+      }
     });
+    entity.__titleAttribute = titleAttribute;
   });
 }
 export default initialize;

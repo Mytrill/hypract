@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { Card, Button } from 'preact-mdl';
 
-import { create, utils } from '../storage';
+import { create, isQueryResult } from '../storage';
 import { FormField, FormFieldWidgetProps } from './FormField';
 import { FormComponent as Config, ComponentProps, Attribute, SimpleType, Entity } from '../types';
 import { AppContext } from './types';
@@ -39,8 +39,8 @@ export interface FormState {
 const getValue = (attribute: Attribute, config: Config, props: ComponentProps): any => {
   // try to get the value passed down in the props, if any.
   const entity = props[config.prop || 'value'];
-  if(utils.isQueryResult(entity)) {
-    return utils.getOnlyResult(entity)[attribute.name];
+  if(isQueryResult(entity)) {
+    return entity.single()[attribute.name];
   }
   if(typeof entity === 'object' && typeof entity[attribute.name] !== 'undefined') {
     return entity[attribute.name];

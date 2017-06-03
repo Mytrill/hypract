@@ -10,6 +10,9 @@ export interface Entity {
   name?: string;
   /** The map of attributes by names. */
   attributes: Attributes;
+  /** The name of the title attribute, if any.
+      For internal use only, do not set. */
+  __titleAttribute?: string;
 }
 
 export interface Attributes {
