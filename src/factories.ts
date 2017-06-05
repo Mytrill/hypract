@@ -47,3 +47,7 @@ export const Actions = {
     displayIcon
   })
 };
+
+export const Data = {
+  constant: (constant: any): T.Data => ({ constant })
+}

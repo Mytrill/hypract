@@ -40,3 +40,12 @@ export const synchronizeInStore = (entity: Entity, id: string, value: object): a
   // return the reactive instance
   return result;
 }
+
+export const contains = (entity: Entity, id: string, attribute?: string): boolean => {
+  const instances = store.get(entity.name);
+  if(!instances) {
+    return false;
+  }
+  const instance = instances.get(id);
+  return instance && (!attribute || typeof instance[attribute] !== 'undefined');
+}

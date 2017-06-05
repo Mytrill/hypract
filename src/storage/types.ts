@@ -5,7 +5,10 @@ import { Entity } from '../types';
  * the ComponentProps. Such a query can be executed directly.
  */
 export interface ResolvedQuery {
-  entity: Entity;
 
+  entity: Entity;
+  /** The list of lazy attributes to fetch, if any. */
+  lazyAttributes?: string[];
+  
   whereIdEquals?: string;
 };

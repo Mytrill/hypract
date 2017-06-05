@@ -35,6 +35,8 @@ export interface Attribute {
   type: SimpleType | string;
   /** The name to display in the UI, if not set, use name key of the attribute with the first letter upper cased. */
   displayName?: string;
+  /** True if this attribute should be stored sepparately from the rest of the entity and only loaded on demand, per entity. */
+  lazy?: boolean;
   /** The name of this attribute, defaults to the key of the attribute in the entity.attributes. */
   name?: string;
   /** Is this attribute nullable, default: true. */
@@ -64,6 +66,8 @@ export enum SimpleType {
    *  
    *  There should only be one attribute of type URL in an entity. */
   URL,
+  /** The boolean type. */
   BOOLEAN,
+  /** The enumeration type, if used, attribute.enumValues must be set. */
   ENUM
 }

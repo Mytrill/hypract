@@ -5,7 +5,7 @@ import { isObservableArray } from 'mobx';
 
 import { QueryResult, ByIdQueryResult, GenericQueryResult} from './QueryResult';
 import { ResolvedQuery } from './types';
-import { resolveEntity } from '../utils';
+import { capitalizeFirstLetter, resolveEntity } from '../utils';
 import { App, ComponentProps, Entity, Query, SimpleType } from '../types';
 
 
@@ -42,7 +42,26 @@ export const resolve = (app: App, query: Query, props: ComponentProps): Resolved
  * @param entity The entity
  * @param id the id, or undefined if computing the path for the entity type only
  */
-export const getPath = (entity: string, id?: string): string => id ? entity + '/' + id : entity;
+export const getPath = (entity: Entity, id?: string, attribute?: string): string => {
+// id ? entity + '/' + id : entity;
+
+  if(attribute && id) {
+    const attr = entity.attributes[attribute];
+    if(!attr) {
+      throw new Error('No attribute "' + attribute + '" in entity "' + entity.name + '".');
+    }
+
+    if(attr.lazy) {
+      return entity.name + capitalizeFirstLetter(attribute) + '/' + id;
+    } else {
+      return entity.name + '/' + id + '/' + attribute;
+    }
+  } else if (id) {
+    return entity.name + '/' + id;
+  }
+
+  return entity.name;
+}
 
 
 /**

@@ -1,6 +1,7 @@
 import { AnyComponent } from 'preact';
 
 import { Action } from './actions';
+import { Data } from './data';
 import { Entity } from './model';
 import { Query } from './queries';
 
@@ -25,23 +26,15 @@ export interface CardComponent {
 
 export interface CardAttributes {
   /** The title to display, may use :propName.attributeName to access props, or #attributeName to access an attribute of the currently displayed entity. */
-  title?: string | DataTemplate | DataResolver;
+  title?: Data;
   /** The subtitle to display, may use :propName.attributeName to access props, or #attributeName to access an attribute of the currently displayed entity. */
-  subtitle?: string | DataTemplate | DataResolver;
+  subtitle?: Data;
   /** The text to display, may use :propName.attributeName to access props, or #attributeName to access an attribute of the currently displayed entity. */
-  supportingText?: string | DataTemplate | DataResolver;
+  supportingText?: Data;
   /** The actions to offer on each card. */
   actions?: Array<string | Action>,
   /** The actions to offer in the context menu on each card. */
   menu?: Array<string | Action>,
-}
-
-export type DataResolver = (props: ComponentProps, data: any) => string | JSX.Element;
-
-export interface DataTemplate {
-  text?: string;
-  attribute?: string;
-  pathInProps?: Array<string>;
 }
 
 /** Component type for a form. */

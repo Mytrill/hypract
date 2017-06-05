@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { Card, Button } from 'preact-mdl';
 
-import { create, isQueryResult } from '../storage';
+import { create, isQueryResult, update } from '../storage';
 import { FormField, FormFieldWidgetProps } from './FormField';
 import { FormComponent as Config, ComponentProps, Attribute, SimpleType, Entity } from '../types';
 import { AppContext } from './types';
@@ -35,18 +35,7 @@ export interface FormState {
 // 
 // /////////////////////////////////////////////////////////////////////////////////////
 
-
-const getValue = (attribute: Attribute, config: Config, props: ComponentProps): any => {
-  // try to get the value passed down in the props, if any.
-  const entity = props[config.prop || 'value'];
-  if(isQueryResult(entity)) {
-    return entity.single()[attribute.name];
-  }
-  if(typeof entity === 'object' && typeof entity[attribute.name] !== 'undefined') {
-    return entity[attribute.name];
-  }
-
-  // otherwise returns a default value depending on the type of attribute
+const getDefaultValue = (attribute: Attribute): any => {
   switch(attribute.type) {
     case SimpleType.BOOLEAN:
       return false;
@@ -70,6 +59,20 @@ const getValue = (attribute: Attribute, config: Config, props: ComponentProps): 
   }
 }
 
+const getValue = (attribute: Attribute, config: Config, props: ComponentProps): any => {
+  // try to get the value passed down in the props, if any.
+  const entity = props[config.prop || 'value'];
+  if(isQueryResult(entity)) {
+    return entity.single()[attribute.name];
+  }
+  if(typeof entity === 'object' && typeof entity[attribute.name] !== 'undefined') {
+    return entity[attribute.name];
+  }
+
+  // otherwise returns a default value depending on the type of attribute
+  return getDefaultValue(attribute);
+}
+
 const hasEntityInValues = (config: Config, props: ComponentProps): boolean => {
   return typeof props[config.prop || 'value'] === 'object';
 }
@@ -80,7 +83,6 @@ const hasEntityInValues = (config: Config, props: ComponentProps): boolean => {
 // Component
 // 
 // /////////////////////////////////////////////////////////////////////////////////////
-
 
 export class FormComponent extends Component<FormProps, FormState> {
 
@@ -190,7 +192,7 @@ export class FormComponent extends Component<FormProps, FormState> {
         create(entity, toCreate)
         .then(result => {
           context.showMessage( entity.name + ' created!');
-          // TODO erase fields
+          this.resetAttributes(entity);
           // TODO redirect if needed
         })
         .catch(error => {
@@ -203,6 +205,14 @@ export class FormComponent extends Component<FormProps, FormState> {
 
   updateAttribute(attribute: Attribute, value: any) {
     this.state.value[attribute.name] = { value };
+    this.forceUpdate();
+  }
+
+  resetAttributes(entity: Entity) {
+    this.props.config.attributes.forEach(attr => {
+      this.state.value[attr] = getDefaultValue(entity.attributes[attr]);
+
+    });
     this.forceUpdate();
   }
 

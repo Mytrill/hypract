@@ -1,8 +1,9 @@
 import hypract, { App, SimpleType, factories } from '../../src/index';
 import firebaseConfig from '../firebaseConfig';
 
-const C = factories.Components;
-const A = factories.Actions;
+const Comps = factories.Components;
+const Actions = factories.Actions;
+const Data = factories.Data;
 
 // the app itself
 const app: App = {
@@ -31,12 +32,12 @@ const app: App = {
     }
   },
   components: {
-    'Todo.sync.all': C.sync('Todo.all', 'Todo.card'),
-    'Todo.card': C.card('Todo', {actions: ['Todo.edit']}),
-    'Todo.form': C.form('Todo', ['title', 'description']),
+    'Todo.sync.all': Comps.sync('Todo.all', 'Todo.card'),
+    'Todo.card': Comps.card('Todo', {actions: ['Todo.edit']}),
+    'Todo.form': Comps.form('Todo', ['title', 'description']),
   },
   actions: {
-    'Todo.edit': A.editToComponent(('Todo.form')),
+    'Todo.edit': Actions.editToComponent(('Todo.form')),
   },
   queries: {
     'Todo.all': { entity: 'Todo' },
