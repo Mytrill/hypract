@@ -32,20 +32,20 @@ export const Components = {
 };
 
 export const Actions = {
-  editToUrl: (targetUrl: string): T.EditAction => ({
-    type: 'Edit',
-    targetUrl
-  }),
-  editToComponent: (targetComponent: string): T.EditAction => ({
-    type: 'Edit',
-    targetComponent
-  }),
-  update: (values: T.UpdateValues, displayName?: string, displayIcon?: string): T.UpdateAction => ({
-    type: 'Update',
-    values,
-    displayName,
-    displayIcon
-  })
+  // editToUrl: (targetUrl: string): T.EditAction => ({
+  //   type: 'Edit',
+  //   targetUrl
+  // }),
+  // editToComponent: (targetComponent: string): T.EditAction => ({
+  //   type: 'Edit',
+  //   targetComponent
+  // }),
+  // update: (values: T.UpdateValues, displayName?: string, displayIcon?: string): T.UpdateAction => ({
+  //   type: 'Update',
+  //   values,
+  //   displayName,
+  //   displayIcon
+  // })
 };
 
 export const Data = {

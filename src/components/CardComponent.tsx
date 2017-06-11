@@ -40,7 +40,7 @@ const evalAttribute = (props: CardProps, cardAttr: string, value: object, entity
   return result;
 }
 
-const renderCard = (entity: Entity, props: CardProps, value: object): JSX.Element => {
+const renderEntity = (entity: Entity, props: CardProps, value: object): JSX.Element => {
   const children: JSX.Element[] = [];
 
   const attributes = props.config.attributes || {};
@@ -68,7 +68,10 @@ const renderCard = (entity: Entity, props: CardProps, value: object): JSX.Elemen
 export class CardComponent extends Component<CardProps, CardState> {
 
   render(props: CardProps, state: CardState, context: AppContext) {
+    return this._render(props, state, context);
+  }
 
+  _render(props: CardProps, state: CardState, context: AppContext) {
     const valueProp = props.config.prop || 'value';
     const value = props.props[valueProp];
 
@@ -86,7 +89,7 @@ export class CardComponent extends Component<CardProps, CardState> {
       // console.log('is query result, result: ' + JSON.stringify(value.list()));
       const children = value.list().map(val => {
         // console.log('Rendering card for sorted value: ' + JSON.stringify(val));
-        return renderCard(entity, props, val);
+        return renderEntity(entity, props, val);
       });
       return <div>{children}</div>;
     }
