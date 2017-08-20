@@ -2,21 +2,9 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
 import { init, State as FirebaseState, reducer as FirebaseReducer, actions } from '../../src/firebase';
-import { State, reducer } from '../../src';
+import { State, reducer, middlewares } from '../../src';
 
-/**
- * Logs all actions and states after they are dispatched.
- */
-const logger = store => next => action => {
-  console.group(action.type);
-  console.log('dispatching', action);
-  let result = next(action);
-  console.log('next state', store.getState());
-  console.groupEnd();
-  return result;
-}
-
-const store = createStore<State>(reducer, applyMiddleware(thunk, logger));
+const store = createStore<State>(reducer, applyMiddleware(middlewares.thunk, middlewares.logger));
 
 
 init({ databaseURL: 'https://learn-project-dev.firebaseio.com' });

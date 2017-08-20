@@ -1,6 +1,6 @@
 module.exports = {
   devtool: 'inline-source-map',
-  entry: ['./todo'],
+  entry: ['./todos'],
   output: {
     path: __dirname + '/public',
     filename: 'bundle.js'
@@ -16,9 +16,5 @@ module.exports = {
         loaders: ['ts-loader']
       }
     ]
-  },
-  externals: {
-    mdl: 'mdl',
-    firebase: 'firebase'
   }
 };
