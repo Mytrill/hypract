@@ -1,7 +1,11 @@
 {
   "name": "hypract",
   "version": "0.0.1",
-  "description": "Hyper productive components for Firebase built with preact, material-ui and redux", 
+  "description": "Hyper productive components for Firebase built with preact, material-ui and redux",
+  "author": {
+    "email": "ferrando.tony@gmail.com",
+    "name": "Anthony Ferrando"
+  },
   "scripts": {
     "build:prod": "webpack -p --progress --colors",
     "build:dev": "webpack --progress --colors"
