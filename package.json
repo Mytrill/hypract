@@ -1,6 +1,6 @@
 {
   "name": "hypract",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Hyper productive components for Firebase built with preact, material-ui and redux",
   "main": "dist/hypract.js",
   "author": {
