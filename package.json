@@ -1,29 +1,23 @@
 {
-  "name": "test-redux",
-  "version": "1.0.0",
+  "name": "hypract",
+  "version": "0.0.1",
+  "description": "Hyper productive components for Firebase built with preact, material-ui and redux", 
   "scripts": {
-    "start": "firebase serve -p 3000",
-    "serve": "firebase serve -p 3000",
-    "serve:watch": "firebase serve -p 3000 | webpack -w",
     "build:prod": "webpack -p --progress --colors",
     "build:dev": "webpack --progress --colors"
   },
   "dependencies": {
     "dot-prop-immutable": "1.3.1",
-    "material-ui": "^0.19.0",
+    "material-ui": "0.19.0",
     "preact": "8.2.1",
-    "preact-compat": "^3.17.0",
-    "react-redux": "^5.0.6",
+    "preact-compat": "3.17.0",
+    "react-redux": "5.0.6",
     "redux": "3.7.2",
-    "redux-form": "^7.0.3",
-    "redux-thunk": "^2.2.0",
-    "updeep": "^1.0.0"
+    "redux-form": "7.0.3",
+    "redux-thunk": "2.2.0"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.71",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
+    "@types/lodash": "4.14.73",
     "ts-loader": "2.3.2",
     "typescript": "2.4.2",
     "webpack": "3.4.1"

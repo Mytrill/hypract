@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-import { init, State as FirebaseState, reducer as FirebaseReducer, actions } from './modules/firebase';
-import { State, reducer } from './modules';
+import { init, State as FirebaseState, reducer as FirebaseReducer, actions } from '../../src/firebase';
+import { State, reducer } from '../../src';
 
 /**
  * Logs all actions and states after they are dispatched.

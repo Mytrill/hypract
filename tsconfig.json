@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "es5",
     "jsx": "react",
     "jsxFactory": "h",
@@ -20,7 +20,6 @@
     "dist",
     "build",
     "node_modules",
-    "_old",
-    "src/examples"
+    "examples"
   ]
 }

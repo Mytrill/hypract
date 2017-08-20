@@ -1,6 +1,7 @@
 # hypract
 
-Hyper productive framework built with
+Hyper productive components for Firebase built with preact, material-ui and redux
+
  - preact
  - redux
  - redux-form
