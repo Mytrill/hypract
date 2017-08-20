@@ -1,9 +1,15 @@
 import { h, render } from 'preact';
+import { Provider } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import AppComponent from './components/App';
-import { App } from './types';
+import { ComponentConf } from './types';
+import { renderToElement } from './utils';
 
-export const start = (app: App) => {
-  render(<AppComponent app={app} />, document.body);
+export const hypract = (conf: ComponentConf, store?: any, props: object = {}) => {
+  const Element = <MuiThemeProvider>{renderToElement(conf, props)}</MuiThemeProvider>;
+  if(store) {
+    render(<Provider store={store}>{Element}</Provider>, document.body);
+  } else {
+    render(Element, document.body);
+  }
 }
-export default start;

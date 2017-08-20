@@ -1,18 +1,26 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "module": "commonjs",
+    "target": "es5",
     "jsx": "react",
     "jsxFactory": "h",
-    // needed for string.startsWith and string.include; TODO fix build process later!
-    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "build",
     "experimentalDecorators": true,
-    "allowJs": true
+    "removeComments": true,
+    "allowJs": true,
+    "lib": [
+      "es6",
+      "es7",
+      "dom"
+    ]
   },
-  "include": [
-    "src/*.ts",
-    "src/*.tsx",
-    "examples/*.ts",
-    "examples/*.tsx"
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules",
+    "_old",
+    "src/examples"
   ]
 }
