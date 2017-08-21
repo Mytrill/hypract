@@ -13,7 +13,7 @@ module.exports = {
   output: {
     path: outPath,
     publicPath: '/',
-    filename: 'hypract.js',
+    filename: isProduction ? 'hypract.min.js' : 'hypract.js',
     library: 'hypract',
     libraryTarget: 'umd',
   },

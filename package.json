@@ -1,11 +1,14 @@
 {
   "name": "hypract",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Hyper productive components for Firebase built with preact, material-ui and redux",
+  "license": "MIT",
   "main": "dist/hypract.js",
-  "author": {
-    "email": "ferrando.tony@gmail.com",
-    "name": "Anthony Ferrando"
+  "minified:main": "dist/hypract.min.js",
+  "author": "Anthony Ferrando <ferrando.tony@gmail.com>",
+  "homepage": "https://github.com/Mytrill/hypract",
+  "bugs": {
+    "url": "https://github.com/Mytrill/hypract/issues"
   },
   "scripts": {
     "build:prod": "webpack -p --progress --colors",
@@ -26,5 +29,13 @@
     "ts-loader": "2.3.2",
     "typescript": "2.4.2",
     "webpack": "3.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mytrill/hypract.git"    
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
 }
