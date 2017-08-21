@@ -2,10 +2,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { h } from 'preact';
 import 'preact/devtools';
 
-import { reducer, middlewares, hypract, firebase as fb } from '../../src';
+import { hypract, firebase as fb } from '../../src';
 import { core, firebase, material } from '../../src/components';
-
-const store = createStore(reducer, applyMiddleware(middlewares.thunk)); //, middlewares.logger
 
 fb.init({ databaseURL: 'https://learn-project-dev.firebaseio.com' });
 
@@ -30,4 +28,4 @@ const app = (
   </core.App>
 );
 
-hypract(app, store);
+hypract(app);
