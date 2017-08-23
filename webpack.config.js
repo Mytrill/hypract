@@ -1,10 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const isProduction = process.argv.indexOf('-p') >= 0;
 const sourcePath = path.join(__dirname, './src');
 const outPath = path.join(__dirname, './dist');
-
 
 module.exports = {
   entry: {

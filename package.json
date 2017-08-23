@@ -5,6 +5,7 @@
   "license": "MIT",
   "main": "dist/hypract.js",
   "minified:main": "dist/hypract.min.js",
+  "typings": "dist/hypact.d.ts",  
   "author": "Anthony Ferrando <ferrando.tony@gmail.com>",
   "homepage": "https://github.com/Mytrill/hypract",
   "bugs": {
@@ -40,6 +41,8 @@
   },
   "files": [
     "src",
-    "dist"
+    "dist",
+    "lib",
+    "lib-esm"
   ]
 }
