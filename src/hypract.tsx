@@ -9,16 +9,15 @@ import { State, reducer } from './reducer';
 
 export interface HypractConf {
   store?: any;
-  props?: object;
   useLogger?: boolean;
 }
 
-export const hypract = (App: PreactComponent, { store, props = {}, useLogger }: HypractConf = {}) => {
+export const hypract = (App: JSX.Element, { store, useLogger }: HypractConf = {}) => {
   const storeToUse = store ? store : createStore(reducer, useLogger ? applyMiddleware(thunk, logger) : applyMiddleware(thunk));
   render(
     <Provider store={store}>
       <MuiThemeProvider>
-        <App {...props} />
+        {App}
       </MuiThemeProvider>
     </Provider>
   ,document.body);

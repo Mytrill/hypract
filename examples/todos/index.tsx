@@ -2,30 +2,28 @@ import { createStore, applyMiddleware } from 'redux';
 import { h } from 'preact';
 import 'preact/devtools';
 
-import { hypract, firebase as fb } from '../../src';
-import { core, firebase, material } from '../../src/components';
+import { hypract, core, firebase, form, material } from '../../src';
 
-fb.init({ databaseURL: 'https://learn-project-dev.firebaseio.com' });
+firebase.init({ databaseURL: 'https://learn-project-dev.firebaseio.com' });
 
 const app = (
-  <core.App conf={{ title: 'My App' }}>
-    <firebase.Query conf={{ path: 'todos' }}>
-      <core.ResultsList conf={{ orderBy: 'title', repeat: true }}>
-        <core.ShowProps conf={{ title: 'Props for todo="{{=result.title}}" index={{=resultIndex}}', hidden: true }} />
-        <material.Card conf={{ }}>
-          <material.CardHeader conf={{ title: '{{=result.title}}' }} >
-          </material.CardHeader>
-        </material.Card>
-      </core.ResultsList>
-    </firebase.Query>
+  <core.components.SetPageTitle title="My App">
+    <firebase.components.Query path="todos">
+      <core.components.ResultsList  orderBy="title" repeat={true}>
+        <core.components.ShowProps title="Props for todo={{=result.title}} index={{=resultIndex}}" hidden={true} />
+        <material.components.Card>
+          <material.components.CardHeader title="{{=result.title}}" />
+        </material.components.Card>
+      </core.components.ResultsList>
+    </firebase.components.Query>
 
-    <material.Form conf={{ name: 'AddTodo', path: 'todos' }}>
-      <core.ShowStore conf={{ title: 'Props for form', path: 'form', hidden: true }} />
-      <material.FormField conf={{ label: 'Title', name: 'title', type: 'string' }} />
-      <material.FormField conf={{ label: 'Description', name: 'description', type: 'text' }} />
-      <material.FormField conf={{ label: 'Done', name: 'done', type: 'boolean' }} />
-    </material.Form>
-  </core.App>
+    <form.components.Form name="AddTodo" path="todos">
+      <core.components.ShowStore title="Props for form" path="form" hidden={true} />
+      <form.components.FormField label="Title" name="title" type="string" />
+      <form.components.FormField label="Description" name="description" type="text" />
+      <form.components.FormField label="Done" name="done" type="boolean" />
+    </form.components.Form>
+  </core.components.SetPageTitle>
 );
 
 hypract(app);
