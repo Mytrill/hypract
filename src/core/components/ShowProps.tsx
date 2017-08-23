@@ -1,34 +1,28 @@
 import { isBoolean } from 'lodash';
-import { h, Component } from 'preact';
+import { h, Component, ComponentProps } from 'preact';
 import { get } from 'dot-prop-immutable';
 
-import { ComponentConf, ComponentProps, WithChildren, Data } from '../../types';
-import { createComponentConfFactory, renderChildrenToElement, data } from '../../utils';
+import { Data, toString } from '../../data';
+import { element, elements, wrap } from '../../element';
 
-export interface ShowPropsConf extends WithChildren {
+export interface ShowPropsProps {
   title?: Data;
   path?: string | string[];
   hidden?: boolean;
 }
 
-export const ShowProps = (props: ComponentProps<ShowPropsConf>) => {
-  if(props.conf.hidden) {
-    return <div>{renderChildrenToElement(props)}</div>;
+export const ShowProps = (props: ShowPropsProps & ComponentProps<any>) => {
+  const { hidden, title, path, children, ...rest } = props;
+  if(hidden) {
+    return wrap(elements(children, rest));
   }
-  const path = props.conf.path;
-  const title = data.toString(props.conf.title, props) || (path ? 'Props for path ' + path : 'Complete Props');
+  const titleResolved = toString(title, props) || (path ? 'Props for path ' + path : 'Complete Props');
   const propsToShow = path ? get(props, path) : props;
   return (
     <div>
-      <h3>{title}</h3>
+      <h3>{titleResolved}</h3>
       <pre>{JSON.stringify(propsToShow, null, 2)}</pre>
-      {renderChildrenToElement(props)}
+      {wrap(elements(children, rest))}
   </div>
   );
 }
-
-export const showProps = (conf: ShowPropsConf): ComponentConf & ShowPropsConf => ({ 
-  renderer: ShowProps, 
-  title: conf.title, 
-  path: conf.path
-});

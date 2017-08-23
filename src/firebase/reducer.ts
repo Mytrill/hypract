@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers, AnyAction } from 'redux';
 
 import * as database from './database';
 import * as errors from './errors';

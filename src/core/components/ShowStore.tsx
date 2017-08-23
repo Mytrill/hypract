@@ -1,44 +1,35 @@
-import { h, FunctionalComponent } from 'preact';
+import { h, FunctionalComponent, ComponentProps } from 'preact';
 import { connect } from 'react-redux';
 import { get } from 'dot-prop-immutable';
 
-import { ComponentConf, ComponentProps, PreactComponent, WithChildren, Data } from '../../types';
-import { createComponentConfFactory, renderChildrenToElement, data } from '../../utils';
+import { Data, toString } from '../../data';
+import { element, elements, wrap } from '../../element';
 
-export interface ShowStoreConf extends WithChildren {
+export interface ShowStoreProps {
   title?: Data;
   path?: string | string[];
   hidden?: boolean;
 }
 
-interface ShowStoreProps extends ComponentProps<ShowStoreConf> {
-  state: any;
-}
-
-const showStoreRaw = (props: ShowStoreProps) => {
-  const { conf, state } = props;
-  if(conf.hidden) {
-    return <div>{renderChildrenToElement(props)}</div>;
+const showStoreRaw = (props: ShowStoreProps & ComponentProps<any>) => {
+  const { title, path, hidden, children, ...rest } = props;
+  const state = props['state'];
+  if(hidden) {
+    return <div>{wrap(elements(children, rest))}</div>;
   }
-  const title = data.toString(props.conf.title, props) || (props.conf.path ? 'State for path ' + props.conf.path : 'Complete State');
-  delete props.state;
+  const titleResolved = toString(title, props) || (path ? 'State for path ' + path : 'Complete State');
+  delete props['state'];
   return (
     <div>
-      <h3>{title}</h3>
+      <h3>{titleResolved}</h3>
       <pre>{JSON.stringify(state, null, 2)}</pre>
-      {renderChildrenToElement(props)}
+      {wrap(elements(children, rest))}
   </div>
   );
 }
 
 const mapStateToProps = (state, ownProps: ShowStoreProps) => ({
-  state: ownProps.conf.path ? get(state, ownProps.conf.path): state,
+  state: ownProps.path ? get(state, ownProps.path): state,
 });
 
-export const ShowStore: FunctionalComponent<ComponentProps<ShowStoreConf>> = connect(mapStateToProps)(showStoreRaw);
-
-export const showStore = (conf: ShowStoreConf): ComponentConf & ShowStoreConf => ({
-  renderer: ShowStore,
-  title: conf.title,
-  path: conf.path
-})
+export const ShowStore: FunctionalComponent<ShowStoreProps> = connect(mapStateToProps)(showStoreRaw);

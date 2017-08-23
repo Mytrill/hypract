@@ -1,3 +1,4 @@
+// TODO think about that
 import thunk from 'redux-thunk';
 export { thunk };
 

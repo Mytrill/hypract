@@ -1,25 +1,25 @@
-import { h } from 'preact';
+import { h, ComponentProps, FunctionalComponent } from 'preact';
 import { connect } from 'react-redux';
 
 import { Query } from '../types';
-import { State } from '../../reducer'; // TODO not correct
+import { State } from '../../reducer';
 import { querySelector } from '../selectors';
-import { createComponentConfFactory, renderChildrenToElement } from '../../utils';
-import { ComponentProps, PreactComponent, WithChildren } from '../../types';
+import { Data, DataOrArray, toString, toStringArray } from '../../data';
+import { element, elements, wrap } from '../../element';
+import { PreactComponent } from '../../types';
 
-export interface QueryResultsConf extends WithChildren {
+export interface QueryResultsProps {
   path: string[];
   query: Query;
 }
 
-const mapStateToProps = (state: State, ownProps: ComponentProps<QueryResultsConf>) => ({
-  results: querySelector(state, ownProps.conf.path, ownProps.conf.query),
+const mapStateToProps = (state: State, ownProps: QueryResultsProps) => ({
+  results: querySelector(state, ownProps.path, ownProps.query),
 });
 
-const QueryResultsRaw = (props: ComponentProps<QueryResultsConf>) => {
-  return renderChildrenToElement(props);
+const QueryResultsRaw = (props: QueryResultsProps & ComponentProps<any>) => {
+  const { children, ...rest } = props;
+  return wrap(elements(children, rest));
 };
 
-export const QueryResults = connect(mapStateToProps)(QueryResultsRaw);
-
-export const queryResults = createComponentConfFactory<QueryResultsConf>(QueryResults);
+export const QueryResults: FunctionalComponent<QueryResultsProps> = connect(mapStateToProps)(QueryResultsRaw);

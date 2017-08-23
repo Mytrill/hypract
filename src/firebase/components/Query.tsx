@@ -1,13 +1,13 @@
 import { h, Component } from 'preact';
 import { isEqual } from 'lodash';
 
-import { queryResults } from './QueryResults';
-import { queryExecutor } from './QueryExecutor';
+import { QueryResults } from './QueryResults';
+import { ExecuteQuery } from './ExecuteQuery';
 import { Query as FirebaseQuery, UnresolvedQuery } from '../types';
-import { createComponentConfFactory, renderToElement, data } from '../../utils';
-import { DataOrArray, ComponentProps, ComponentConf, PreactComponent, WithChildren } from '../../types';
+import { Data, DataOrArray, toString, toStringArray } from '../../data';
+import { element, elements, wrap } from '../../element';
 
-export interface QueryConf extends WithChildren {
+export interface QueryProps {
   path: DataOrArray;
   query?: UnresolvedQuery;
 }
@@ -18,19 +18,19 @@ const resolveQuery = (query: UnresolvedQuery, props: any): FirebaseQuery => {
   }
 
   return {
-    equals: data.toString(query.equals, props),
-    where: data.toStringArray(query.where, props)
+    equals: toString(query.equals, props),
+    where: toStringArray(query.where, props)
   };
 }
 
-export class Query extends Component<ComponentProps<QueryConf>, any> {
+export class Query extends Component<QueryProps, any> {
 
   path: string[];
   query: FirebaseQuery;
 
-  private resolveQuery(props: ComponentProps<QueryConf>): boolean {
-    const path = data.toStringArray(props.conf.path, props);
-    const query = resolveQuery(props.conf.query, props);
+  private resolveQuery(props: QueryProps): boolean {
+    const path = toStringArray(props.path, props);
+    const query = resolveQuery(props.query, props);
 
     const eq = isEqual(path, this.path) && isEqual(query, this.query);
     this.path = path;
@@ -43,23 +43,20 @@ export class Query extends Component<ComponentProps<QueryConf>, any> {
     this.resolveQuery(this.props);
   }
 
-  shouldComponentUpdate(nextProps: ComponentProps<QueryConf>, nextState: any) {
+  shouldComponentUpdate(nextProps: QueryProps, nextState: any) {
     return this.resolveQuery(nextProps);
   }
 
   render() {
-    return renderToElement(queryExecutor({
-      query: this.query,
-      path: this.path,
-      children: [
-        queryResults({
-          query: this.query,
-          path: this.path,
-          children: this.props.conf.children || this.props.children
-        })
-      ]
-    }), this.props);
+    // do not pass path and query down
+    const { children, path, query, ...rest } = this.props;
+
+    return (
+      <ExecuteQuery path={this.path} query={this.query}>
+        <QueryResults path={this.path} query={this.query}>
+          {elements(children, rest)}
+        </QueryResults>
+      </ExecuteQuery>
+    );
   }
 }
-
-export const query = createComponentConfFactory<QueryConf>(Query);

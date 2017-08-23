@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers, AnyAction } from 'redux';
 
 import * as firebase from './firebase';
 import * as form from './form';

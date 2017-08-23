@@ -8,4 +8,6 @@ Hyper productive components for Firebase built with preact, material-ui and redu
  - material-ui
 
 
-More info coming soon...
+# Todo
+
+[ ] Merge Query into ExecuteQuery

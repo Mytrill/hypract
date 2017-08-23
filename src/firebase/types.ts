@@ -1,4 +1,4 @@
-import { Data } from '../types';
+import { Data } from '../data';
 
 export interface OperationError {
   message: string;
