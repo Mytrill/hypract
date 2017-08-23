@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "sourceMap": false,
+    "sourceMap": true,
+    "declaration": true,
     "target": "es5",
     "jsx": "react",
     "jsxFactory": "h",
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "build",
+    "outDir": "lib",
     "experimentalDecorators": true,
     "removeComments": true,
-    "allowJs": true,
     "lib": [
       "es6",
       "es7",
@@ -18,7 +18,8 @@
   },
   "exclude": [
     "dist",
-    "build",
+    "lib",
+    "lib-esm",
     "node_modules",
     "examples"
   ]
