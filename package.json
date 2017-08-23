@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "dist/hypract.js",
   "minified:main": "dist/hypract.min.js",
-  "typings": "dist/hypact.d.ts",  
+  "typings": "dist/hypract.d.ts",
   "author": "Anthony Ferrando <ferrando.tony@gmail.com>",
   "homepage": "https://github.com/Mytrill/hypract",
   "bugs": {
@@ -14,7 +14,8 @@
   "scripts": {
     "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && npm run generate:dts",
     "clean": "shx rm -rf dist lib lib-esm",
-    "generate:dts": "dts-bundle --name hypract --main lib/index.d.ts --baseDir lib --out ../dist/hypract.d.ts"
+    "generate:dts": "dts-bundle --name hypract --main lib/index.d.ts --baseDir lib --out ../dist/hypract.d.ts",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "dot-prop-immutable": "1.3.1",
