@@ -44,37 +44,3 @@ module.exports = {
     }]
   }
 }
-
-
-const ignored = {
-  context: __dirname,
-  entry: {
-    main: './src/index.ts',
-  },
-  output: {
-    path: outPath,
-    publicPath: '/',
-    filename: isProduction ? 'hypract.min.js' : 'hypract.js',
-    library: 'hypract',
-    libraryTarget: 'umd',
-  },
-  target: 'web',
-  resolve: {
-    extensions: ['.js', '.ts', '.tsx'],
-    alias: {
-      'react': 'preact-compat',
-      'react-dom': 'preact-compat'
-    }
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.tsx?$/,
-        loaders: ['ts-loader']
-      }
-    ]
-  },
-  plugins: [
-    new webpack.optimize.AggressiveMergingPlugin()
-  ]
-};
