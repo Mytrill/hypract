@@ -11,3 +11,7 @@ Hyper productive components for Firebase built with preact, material-ui and redu
 # Todo
 
 [ ] Merge Query into ExecuteQuery
+[ ] Merge firebase data with model data? or keep the 2 separate?
+[ ] Reintroduce the model data
+[ ] Make apiActionCreator usable with any api and expose it! (maybe that will go well with the model data?)
+
