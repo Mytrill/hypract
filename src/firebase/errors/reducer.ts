@@ -1,7 +1,7 @@
-import { Action } from '../../types';
+import { Action } from '../../actions';
 import { OperationError } from '../types';
 import * as actions from '../actions';
-import { push } from '../../utils';
+import { push } from '../../immutable';
 
 export type State = OperationError[];
 

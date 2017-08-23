@@ -1,46 +1,47 @@
+import { h, Component, ComponentProps, FunctionalComponent } from 'preact';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { reduxForm } from 'redux-form';
-import { h, Component } from 'preact';
 
 import { actions } from '../../firebase';
-import { createComponentConfFactory, renderChildrenToArray, data } from '../../utils';
-import { ComponentProps, ComponentConf, PreactComponent, WithChildren, Data, DataOrArray } from '../../types';
+import { Data, DataOrArray, toStringArray } from '../../data';
+import { element, elements, wrap } from '../../element';
+import { PreactComponent } from '../../types';
 
-export interface FormConf extends WithChildren {
+export interface FormProps {
   name: Data;
   path: DataOrArray;
 }
 
-interface FormRawProps extends ComponentProps<FormConf> {
+interface FormRawProps extends FormProps {
   handleSubmit(): void;
 }
 
-const FormRaw = (props: FormRawProps) => {
-  const { handleSubmit, conf } = props;
+const FormRaw = (props: FormRawProps & ComponentProps<any>) => {
+  const { handleSubmit, children, ...rest } = props;
   return (
     <form onSubmit={handleSubmit}>
-      {renderChildrenToArray(props)}
+      {elements(children, rest)}
     </form>
   );
 }
 
-const mapStateToProps = (state: any, ownProps: ComponentProps<FormConf>) => ({
+const mapStateToProps = (state: any, ownProps: FormProps) => ({
   // emtpy for now
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: ComponentProps<FormConf>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: FormProps) => ({
   onSubmit: (updates: any) => {
-    dispatch<any>(actions.push(data.toStringArray(ownProps.conf.path, ownProps), updates)); 
+    dispatch<any>(actions.push(toStringArray(ownProps.path, ownProps), updates)); 
   }
 });
 
-export class Form extends Component<ComponentProps<FormConf>, {}> {
+export class Form extends Component<FormProps, any> {
 
   form: PreactComponent;
 
   componentWillMount() {
-    const conf = this.props.conf;
+    const { name } = this.props;
     this.form = connect(
       mapStateToProps,
       mapDispatchToProps
@@ -48,7 +49,7 @@ export class Form extends Component<ComponentProps<FormConf>, {}> {
     // reduxForm allows only constants, not functions of props, 
     // so we have to wrap it in its own component...
     (reduxForm({
-      form: conf.name
+      form: name
     })
     (FormRaw));
   }
@@ -57,5 +58,3 @@ export class Form extends Component<ComponentProps<FormConf>, {}> {
     return <this.form {...this.props} />;
   }
 }
-
-export const form = createComponentConfFactory<FormConf>(Form);

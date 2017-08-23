@@ -34,7 +34,7 @@ export const ResultsList = (props: ResultsListProps & ComponentProps<any>) => {
 
   if(repeat) {
     if(typeof repeat === 'boolean') {
-      return <div>{results.map((result, resultIndex) => element(children, rest, { results, result, resultIndex }))}</div>;
+      return <div>{results.map((result, resultIndex) => wrap(elements(children, rest, { results, result, resultIndex })))}</div>;
     } else {
       return <div>{results.map((result, resultIndex) => element(repeat, rest, { results, result, resultIndex }))}</div>;
     }

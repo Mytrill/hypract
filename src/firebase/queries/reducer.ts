@@ -1,7 +1,7 @@
 import { set } from 'dot-prop-immutable';
 
-import { Action } from '../../types';
-import { QueryStates } from '../types';
+import { Action } from '../../actions';
+import { QueryStates, QueryStateTreeNode } from '../types';
 import { queryToString } from '../utils';
 import * as actions from '../actions';
 

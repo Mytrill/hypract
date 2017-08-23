@@ -1,6 +1,6 @@
 import { set } from 'dot-prop-immutable';
 
-import { Action } from '../../types';
+import { Action } from '../../actions';
 import * as actions from '../actions';
 
 export type State = any;
