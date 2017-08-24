@@ -1,9 +1,9 @@
-import { h, ComponentProps } from 'preact';
+import * as React from 'react';
 import { sortBy, isBoolean } from 'lodash';
 
 import { DataOrArray, toArray, toString } from '../../data';
 import { element, elements, wrap } from '../../element';
-import { HypractComponent } from '../../types';
+import { HypractComponent, ComponentProps } from '../../types';
 
 export interface ResultsListProps {
   orderBy?: DataOrArray;
@@ -14,7 +14,7 @@ export interface ResultsListProps {
   defaultResults?: object;
 }
 
-export const ResultsList = (props: ResultsListProps & ComponentProps<any>) => {
+export const ResultsList = (props: ResultsListProps & ComponentProps) => {
   const { orderBy, orderByValues, noResults, oneResult, repeat, defaultResults, children, ...rest } = props;
 
   const orderByResolved = toArray(orderBy, props, toString);
@@ -34,15 +34,15 @@ export const ResultsList = (props: ResultsListProps & ComponentProps<any>) => {
 
   if(repeat) {
     if(typeof repeat === 'boolean') {
-      return <div>{results.map((result, resultIndex) => wrap(elements(children, rest, { results, result, resultIndex })))}</div>;
+      return <div>{results.map((result, resultIndex) => element(children, rest, { results, result, resultIndex }))}</div>;
     } else {
       return <div>{results.map((result, resultIndex) => element(repeat, rest, { results, result, resultIndex }))}</div>;
     }
   }
 
-  return wrap(elements(children, rest, { 
+  return element(children, rest, { 
     results, 
     result: results.length === 1 ? results[0]: undefined,
     resultIndex: results.length === 1 ? 0: undefined
-  }));
+  });
 }

@@ -1,11 +1,11 @@
-import { h, Component } from 'preact';
+import * as React from 'react';
 import { isEqual } from 'lodash';
 
 import { QueryResults } from './QueryResults';
 import { ExecuteQuery } from './ExecuteQuery';
 import { Query as FirebaseQuery, UnresolvedQuery } from '../types';
 import { Data, DataOrArray, toString, toStringArray } from '../../data';
-import { element, elements, wrap } from '../../element';
+import { element } from '../../element';
 
 export interface QueryProps {
   path: DataOrArray;
@@ -23,7 +23,7 @@ const resolveQuery = (query: UnresolvedQuery, props: any): FirebaseQuery => {
   };
 }
 
-export class Query extends Component<QueryProps, any> {
+export class Query extends React.Component<QueryProps, any> {
 
   path: string[];
   query: FirebaseQuery;
@@ -54,7 +54,7 @@ export class Query extends Component<QueryProps, any> {
     return (
       <ExecuteQuery path={this.path} query={this.query}>
         <QueryResults path={this.path} query={this.query}>
-          {elements(children, rest)}
+          {element(children, rest)}
         </QueryResults>
       </ExecuteQuery>
     );

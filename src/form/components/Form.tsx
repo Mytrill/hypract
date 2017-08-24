@@ -1,12 +1,12 @@
-import { h, Component, ComponentProps, FunctionalComponent } from 'preact';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { reduxForm } from 'redux-form';
 
 import { actions } from '../../firebase';
 import { Data, DataOrArray, toStringArray } from '../../data';
-import { element, elements, wrap } from '../../element';
-import { PreactComponent } from '../../types';
+import { element } from '../../element';
+import { ComponentProps, ReactComponent } from '../../types';
 
 export interface FormProps {
   name: Data;
@@ -17,11 +17,11 @@ interface FormRawProps extends FormProps {
   handleSubmit(): void;
 }
 
-const FormRaw = (props: FormRawProps & ComponentProps<any>) => {
+const FormRaw = (props: FormRawProps & ComponentProps) => {
   const { handleSubmit, children, ...rest } = props;
   return (
     <form onSubmit={handleSubmit}>
-      {elements(children, rest)}
+      {element(children, rest)}
     </form>
   );
 }
@@ -36,9 +36,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: FormProps) => ({
   }
 });
 
-export class Form extends Component<FormProps, any> {
+export class Form extends React.Component<FormProps, any> {
 
-  form: PreactComponent;
+  form: ReactComponent;
 
   componentWillMount() {
     const { name } = this.props;

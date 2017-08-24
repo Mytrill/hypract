@@ -1,4 +1,8 @@
-export { h } from 'preact';
+import * as React from 'react';
+export { React };
+
+import * as mui from 'material-ui';
+export { mui };
 
 export { hypract } from './hypract';
 export { reducer, State } from './reducer';

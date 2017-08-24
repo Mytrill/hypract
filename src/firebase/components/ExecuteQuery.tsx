@@ -1,4 +1,4 @@
-import { h, Component, FunctionalComponent } from 'preact';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -7,7 +7,7 @@ import * as actions from '../actions';
 import { queryStateSelector } from '../selectors';
 import { Query, SingleQueryState } from '../types';
 import { Data, DataOrArray, toString, toStringArray } from '../../data';
-import { element, elements, wrap } from '../../element';
+import { element } from '../../element';
 
 export interface ExecuteQueryProps {
   path: string[];
@@ -19,7 +19,7 @@ export interface ExecuteQueryRawProps extends ExecuteQueryProps {
   queryState?: SingleQueryState;
 }
 
-class ExecuteQueryRaw extends Component<ExecuteQueryRawProps, any> {
+class ExecuteQueryRaw extends React.Component<ExecuteQueryRawProps, any> {
 
   componentDidMount() {
     this.props.exec(this.props.path, this.props.query);
@@ -38,7 +38,7 @@ class ExecuteQueryRaw extends Component<ExecuteQueryRawProps, any> {
       return <div></div>;
     }
     // query succeeded
-    return wrap(elements(children, rest));
+    return element(children, rest);
   }
 }
 
@@ -50,4 +50,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   exec: (path: string[], query: Query) => { dispatch<any>(actions.query(path, query)); }
 });
 
-export const ExecuteQuery: FunctionalComponent<ExecuteQueryProps> = connect(mapStateToProps, mapDispatchToProps)(ExecuteQueryRaw);
+export const ExecuteQuery: React.StatelessComponent<ExecuteQueryProps> = connect(mapStateToProps, mapDispatchToProps)(ExecuteQueryRaw);

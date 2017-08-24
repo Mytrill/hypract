@@ -1,14 +1,13 @@
-import { h, Component, ComponentProps } from 'preact';
-
 import { Data, toString } from '../../data';
-import { elements, wrap } from '../../element';
+import { ComponentProps } from '../../types';
+import { element } from '../../element';
 
 export interface SetPageTitleProps {
   title: Data;
 }
 
-export const SetPageTitle = (props: SetPageTitleProps & ComponentProps<any>) => {
+export const SetPageTitle = (props: SetPageTitleProps & ComponentProps) => {
   const { title, children, ...rest } = props;
   document.title = toString(props.title, props);
-  return wrap(elements(children, rest));
+  return element(children, rest);
 }

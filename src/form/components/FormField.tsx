@@ -1,10 +1,7 @@
-import { h, Component } from 'preact';
+import * as React from 'react';
 import { Field as ReduxField } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
-
-import { ReduxFieldProps } from '../types';
-import { PreactComponent } from '../../types';
 
 export interface FormFieldProps {
   name: string;

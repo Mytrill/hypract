@@ -1,10 +1,4 @@
 
-
-export const isJsxElement = (comp: any): comp is JSX.Element => {
-  return comp && comp.nodeName;
-}
-
-
 export const merge = (props?: object, extra: object = {}, extra2: object = {}): object => {
   if(Object.keys(extra).length === 0 && Object.keys(extra2).length === 0) {
     return props;

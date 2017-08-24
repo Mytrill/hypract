@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import { h } from 'preact';
-import 'preact/devtools';
+import { createElement } from 'react';
 
 import { hypract, core, firebase, form, material } from '../../src';
 

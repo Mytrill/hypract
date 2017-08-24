@@ -5,6 +5,8 @@
   "license": "MIT",
   "main": "dist/hypract.js",
   "minified:main": "dist/hypract.min.js",
+  "module": "dist/hypract.esm.js",
+  "es2015": "dist/hypract.es2015.js",
   "typings": "dist/hypract.d.ts",
   "author": "Anthony Ferrando <ferrando.tony@gmail.com>",
   "homepage": "https://github.com/Mytrill/hypract",
@@ -12,9 +14,13 @@
     "url": "https://github.com/Mytrill/hypract/issues"
   },
   "scripts": {
-    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && npm run build:dts",
+    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && npm run generate:dts",
+    "build:main": "webpack",
+    "build:module": "tsc",
+    "build:es2015": "tsc -m es6 --outDir lib-esm",
     "build:dts": "dts-bundle --name hypract --main lib/index.d.ts --baseDir lib --out ../dist/hypract.d.ts",
-    "clean": "shx rm -rf dist lib lib-esm"
+    "clean": "shx rm -rf dist lib lib-esm",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "dot-prop-immutable": "1.3.1",
@@ -28,7 +34,6 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.73",
-    "@types/react": "15.0.30",
     "awesome-typescript-loader": "^3.2.3",
     "dts-bundle": "0.7.3",
     "npm-run-all": "^4.0.2",

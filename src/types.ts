@@ -1,5 +1,13 @@
-import { ComponentConstructor, FunctionalComponent } from 'preact';
+import * as React from 'react';
 
-export type PreactComponent = ComponentConstructor<any, any> | FunctionalComponent<any>;
+export interface ComponentProps {
+  children?: ReactNode;
+}
 
-export type HypractComponent = PreactComponent | JSX.Element;
+export type ReactElement = React.ReactElement<any>;
+
+export type ReactNode = React.ReactNode;
+
+export type ReactComponent = React.ComponentType<any>;
+
+export type HypractComponent = ReactComponent | ReactNode;

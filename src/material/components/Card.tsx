@@ -1,7 +1,8 @@
-import { h, Component, ComponentProps } from 'preact';
+import * as React from 'react';
 import MCard, * as M from 'material-ui/Card';
 
-import { element, elements, wrap } from '../../element';
+import { element } from '../../element';
+import { ComponentProps } from '../../types';
 import { Data, DataOrArray, toString, toStringArray } from '../../data';
 
 /* --------------------------------------------------------------------- */
@@ -33,11 +34,11 @@ export interface CardContentProps {
   // collapsible?: boolean;
 }
 
-export const CardContent = (props: CardContentProps & ComponentProps<any>) => {
+export const CardContent = (props: CardContentProps & ComponentProps) => {
   // const conf = props.conf;
   // if(conf.collapsible) {
   // }
-  return <M.CardContent>{elements(props.children, props)}</M.CardContent>;
+  return <M.CardContent>{element(props.children, props)}</M.CardContent>;
 }
 
 /* --------------------------------------------------------------------- */
@@ -46,9 +47,9 @@ export interface CardProps {
   raised?: boolean;
 }
 
-export const Card = (props: CardProps & ComponentProps<any>) => {
+export const Card = (props: CardProps & ComponentProps) => {
   // console.log('rendering card', props);
-  return <MCard raised={props.raised}>{elements(props.children, props)}</MCard>;
+  return <MCard raised={props.raised}>{element(props.children, props)}</MCard>;
 }
 
 /* --------------------------------------------------------------------- */

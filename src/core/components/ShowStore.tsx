@@ -1,9 +1,10 @@
-import { h, FunctionalComponent, ComponentProps } from 'preact';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { get } from 'dot-prop-immutable';
 
 import { Data, toString } from '../../data';
-import { element, elements, wrap } from '../../element';
+import { ComponentProps } from '../../types';
+import { element } from '../../element';
 
 export interface ShowStoreProps {
   title?: Data;
@@ -11,11 +12,11 @@ export interface ShowStoreProps {
   hidden?: boolean;
 }
 
-const showStoreRaw = (props: ShowStoreProps & ComponentProps<any>) => {
+const showStoreRaw = (props: ShowStoreProps & ComponentProps) => {
   const { title, path, hidden, children, ...rest } = props;
   const state = props['state'];
   if(hidden) {
-    return <div>{wrap(elements(children, rest))}</div>;
+    return <div>{element(children, rest)}</div>;
   }
   const titleResolved = toString(title, props) || (path ? 'State for path ' + path : 'Complete State');
   delete props['state'];
@@ -23,7 +24,7 @@ const showStoreRaw = (props: ShowStoreProps & ComponentProps<any>) => {
     <div>
       <h3>{titleResolved}</h3>
       <pre>{JSON.stringify(state, null, 2)}</pre>
-      {wrap(elements(children, rest))}
+      {element(children, rest)}
   </div>
   );
 }
@@ -32,4 +33,4 @@ const mapStateToProps = (state, ownProps: ShowStoreProps) => ({
   state: ownProps.path ? get(state, ownProps.path): state,
 });
 
-export const ShowStore: FunctionalComponent<ShowStoreProps> = connect(mapStateToProps)(showStoreRaw);
+export const ShowStore: React.StatelessComponent<ShowStoreProps> = connect(mapStateToProps)(showStoreRaw);

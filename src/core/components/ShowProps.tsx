@@ -1,9 +1,10 @@
+import * as React from 'react';
 import { isBoolean } from 'lodash';
-import { h, Component, ComponentProps } from 'preact';
 import { get } from 'dot-prop-immutable';
 
 import { Data, toString } from '../../data';
-import { element, elements, wrap } from '../../element';
+import { ComponentProps } from '../../types';
+import { element } from '../../element';
 
 export interface ShowPropsProps {
   title?: Data;
@@ -11,10 +12,10 @@ export interface ShowPropsProps {
   hidden?: boolean;
 }
 
-export const ShowProps = (props: ShowPropsProps & ComponentProps<any>) => {
+export const ShowProps = (props: ShowPropsProps & ComponentProps) => {
   const { hidden, title, path, children, ...rest } = props;
   if(hidden) {
-    return wrap(elements(children, rest));
+    return element(children, rest);
   }
   const titleResolved = toString(title, props) || (path ? 'Props for path ' + path : 'Complete Props');
   const propsToShow = path ? get(props, path) : props;
@@ -22,7 +23,7 @@ export const ShowProps = (props: ShowPropsProps & ComponentProps<any>) => {
     <div>
       <h3>{titleResolved}</h3>
       <pre>{JSON.stringify(propsToShow, null, 2)}</pre>
-      {wrap(elements(children, rest))}
+      {element(children, rest)}
   </div>
   );
 }
