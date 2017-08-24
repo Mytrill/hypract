@@ -12,9 +12,9 @@
     "url": "https://github.com/Mytrill/hypract/issues"
   },
   "scripts": {
-    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && npm run generate:dts",
+    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && npm run build:dts",
+    "build:dts": "dts-bundle --name hypract --main lib/index.d.ts --baseDir lib --out ../dist/hypract.d.ts",
     "clean": "shx rm -rf dist lib lib-esm",
-    "generate:dts": "dts-bundle --name hypract --main lib/index.d.ts --baseDir lib --out ../dist/hypract.d.ts",
     "prepublish": "npm run build"
   },
   "dependencies": {
@@ -31,6 +31,7 @@
     "@types/lodash": "4.14.73",
     "awesome-typescript-loader": "^3.2.3",
     "dts-bundle": "0.7.3",
+    "npm-run-all": "^4.0.2",
     "shx": "^0.2.2",
     "ts-loader": "2.3.2",
     "typescript": "2.4.2",
