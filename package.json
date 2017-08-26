@@ -16,7 +16,8 @@
   "scripts": {
     "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && npm run build:dts",
     "build:dts": "dts-bundle --name hypract --main lib/index.d.ts --baseDir lib --out ../dist/hypract.d.ts",
-    "clean": "shx rm -rf dist lib lib-esm"
+    "clean": "shx rm -rf dist lib lib-esm",
+    "example": "webpack "
   },
   "dependencies": {
     "@types/material-ui": "0.18.0",

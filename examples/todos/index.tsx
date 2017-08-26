@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
-import { createElement } from 'react';
 
-import { hypract, core, firebase, form, material } from '../../src';
+import { hypract, core, firebase, form, material, React } from '../../src';
 
 firebase.init({ databaseURL: 'https://learn-project-dev.firebaseio.com' });
 
