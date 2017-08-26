@@ -8,9 +8,8 @@ export interface IconButtonProps {
   dispatchOnClick?(props: any, state: any, e: React.MouseEvent<any>): Action;
 }
 
-export function IconButton(props: IconButtonProps) {
+export function IconButton(props: IconButtonProps, { store }) {
   const { materialIconName, tooltip, dispatchOnClick, ...rest } = props;
-  const store = this.context.store;
 
   const handleEvent = (e: React.MouseEvent<any>) => {
     if(!dispatchOnClick) {

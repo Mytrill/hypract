@@ -29,10 +29,8 @@ const IfRaw = (props: IfRawProps & ComponentProps) => {
   return <div>{toRender}</div>;
 }
 
-const mapStateToProps = {
-  conditionMet: (state:any, ownProps: IfProps) => {
-    return ownProps.condition(state, ownProps);
-  }
-}
+const mapStateToProps = (state:any, ownProps: IfProps) => ({
+  conditionMet: ownProps.condition(state, ownProps)
+})
 
 export const If = connect(mapStateToProps)(IfRaw);
