@@ -1,4 +1,4 @@
-import { StatelessComponent } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { Query } from '../types';
@@ -13,13 +13,17 @@ export interface QueryResultsProps {
   query: Query;
 }
 
+interface QueryResultsRawProps extends QueryResultsProps, ComponentProps {
+  results: any;
+}
+
 const mapStateToProps = (state: State, ownProps: QueryResultsProps) => ({
   results: querySelector(state, ownProps.path, ownProps.query),
 });
 
-const QueryResultsRaw = (props: QueryResultsProps & ComponentProps) => {
+const QueryResultsRaw = (props: QueryResultsRawProps) => {
   const { children, ...rest } = props;
   return element(children, rest);
 };
 
-export const QueryResults: StatelessComponent<QueryResultsProps> = connect(mapStateToProps)(QueryResultsRaw);
+export const QueryResults: React.ComponentClass<QueryResultsProps> = connect(mapStateToProps)(QueryResultsRaw);

@@ -23,4 +23,4 @@ const mapStateToProps = (state:any, ownProps: IfProps) => ({
   conditionMet: computeConditionMet(state, ownProps)
 })
 
-export const If: React.StatelessComponent<IfProps> = connect(mapStateToProps)(IfRaw);
+export const If: React.ComponentClass<IfProps> = connect(mapStateToProps)(IfRaw);

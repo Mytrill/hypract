@@ -33,4 +33,4 @@ const mapStateToProps = (state, ownProps: ShowStoreProps) => ({
   state: ownProps.path ? get(state, ownProps.path): state,
 });
 
-export const ShowStore: React.StatelessComponent<ShowStoreProps> = connect(mapStateToProps)(showStoreRaw);
+export const ShowStore: React.ComponentClass<ShowStoreProps> = connect(mapStateToProps)(showStoreRaw);

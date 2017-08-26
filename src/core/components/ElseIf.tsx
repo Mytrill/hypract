@@ -42,7 +42,7 @@ const ElseIfRaw = ({ conditionMet, elseIfConditionMet, children, ...rest }: Else
 
 const mapStateToProps = (state:any, ownProps: ElseIfProps) => ({
   // this || prevents the second condition to be evaluated if the if condition is already met.
-  elseIfonditionMet: ownProps.conditionMet || computeConditionMet(state, ownProps)
+  elseIfConditionMet: ownProps.conditionMet || computeConditionMet(state, ownProps)
 })
 
-export const ElseIf: React.StatelessComponent<ElseIfProps> = connect(mapStateToProps)(ElseIfRaw);
+export const ElseIf: React.ComponentClass<ElseIfProps> = connect(mapStateToProps)(ElseIfRaw);

@@ -6,6 +6,7 @@ import { State } from '../../reducer';
 import * as actions from '../actions';
 import { queryStateSelector } from '../selectors';
 import { Query, SingleQueryState } from '../types';
+import { ComponentProps } from '../../types';
 import { Data, DataOrArray, toString, toStringArray } from '../../data';
 import { element } from '../../element';
 
@@ -14,12 +15,12 @@ export interface ExecuteQueryProps {
   query: Query;
 }
 
-export interface ExecuteQueryRawProps extends ExecuteQueryProps {
+export interface ExecuteQueryRawProps extends ExecuteQueryProps, ComponentProps {
   exec(path: string[], query: Query): void;
   queryState?: SingleQueryState;
 }
 
-class ExecuteQueryRaw extends React.Component<ExecuteQueryRawProps, any> {
+class ExecuteQueryRaw extends React.Component<ExecuteQueryRawProps> {
 
   componentDidMount() {
     this.props.exec(this.props.path, this.props.query);
@@ -42,7 +43,7 @@ class ExecuteQueryRaw extends React.Component<ExecuteQueryRawProps, any> {
   }
 }
 
-const mapStateToProps = (state: State, props: ExecuteQueryRawProps) => ({
+const mapStateToProps = (state: State, props: ExecuteQueryProps) => ({
   queryState: queryStateSelector(state, props.path, props.query)
 });
 
@@ -50,4 +51,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   exec: (path: string[], query: Query) => { dispatch<any>(actions.query(path, query)); }
 });
 
-export const ExecuteQuery: React.StatelessComponent<ExecuteQueryProps> = connect(mapStateToProps, mapDispatchToProps)(ExecuteQueryRaw);
+export const ExecuteQuery: React.ComponentClass<ExecuteQueryProps> = connect(mapStateToProps, mapDispatchToProps)(ExecuteQueryRaw as any);
