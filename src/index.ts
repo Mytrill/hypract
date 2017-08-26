@@ -2,8 +2,8 @@
 import * as React from 'react';
 export { React };
 
-import * as mui from 'material-ui';
-export { mui };
+import * as materialUi from 'material-ui';
+export { materialUi };
 
 import * as redux from 'redux';
 export { redux };
