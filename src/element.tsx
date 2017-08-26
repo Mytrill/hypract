@@ -36,24 +36,30 @@ export const element = (Comp: HypractComponent, props?: any, extra?: any, Tag: s
     return React.cloneElement(Comp, merged);
   }
 
-  if(isBoolean(Comp) || isNumber(Comp)) {
-    return null;
-  }
-
   if(isFunction(Comp) || isString(Comp)) {
     return <Comp {...merged} />
   }
 
   console.log('Got weird Comp', Comp);
-  throw new Error('Got weird Comp');
+  throw <div>{Comp}</div>;
 }
 
-export const elements = (comps: HypractComponent[], props?: any, extra?: any): ReactElement[] => {
+const isComponentArray = (comps: HypractComponent | HypractComponent[]): comps is HypractComponent[] => {
+  return isArray(comps);
+}
+
+export const elements = (comps: HypractComponent | HypractComponent[], props?: any, extra?: any): ReactElement[] => {
   // potentially merge objects, do only once
   const merged = merge(props, extra);
-  return comps.map(comp => element(comp, merged));
+  if(isComponentArray(comps)) {
+    // typescript weird behaviour
+    return (comps as any[]).map((comp: HypractComponent): ReactElement => element(comp, merged));
+  }
+
+  return [ element(comps, merged) ];
 }
 
 export const wrap = (elements: JSX.Element[], Tag: string | ReactComponent = 'div', props: any = {}): JSX.Element => {
   return <Tag {...props}>{elements}</Tag>;
 }
+

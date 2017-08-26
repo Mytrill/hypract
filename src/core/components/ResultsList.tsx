@@ -2,7 +2,7 @@ import * as React from 'react';
 import { sortBy, isBoolean } from 'lodash';
 
 import { DataOrArray, toArray, toString } from '../../data';
-import { element, elements, wrap } from '../../element';
+import { element } from '../../element';
 import { HypractComponent, ComponentProps } from '../../types';
 
 export interface ResultsListProps {
