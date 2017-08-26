@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { reduxForm } from 'redux-form';
 
+import { State } from '../../reducer';
 import { actions } from '../../firebase';
-import { Data, DataOrArray, toStringArray } from '../../data';
 import { element } from '../../element';
 import { ComponentProps, ReactComponent } from '../../types';
+import { Data, DataOrArray, toStringArray } from '../../data';
 
 export interface FormProps {
   name: Data;
@@ -49,7 +50,8 @@ export class Form extends React.Component<FormProps, any> {
     // reduxForm allows only constants, not functions of props, 
     // so we have to wrap it in its own component...
     (reduxForm({
-      form: name
+      form: name,
+      getFormState: (state: State) => state.hypract.form
     })
     (FormRaw));
   }

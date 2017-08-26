@@ -23,7 +23,7 @@ export const querySelector = (state: State, path: string[], query: Query): any =
   
   // console.log('Query Selector', state);
   
-  const data = get(state.firebase.database, path);
+  const data = get(state.hypract.firebase.database, path);
 
   if(query.where && query.equals) {
     if(typeof data !== 'object') {
@@ -47,5 +47,5 @@ export const querySelector = (state: State, path: string[], query: Query): any =
 export const queryStateSelector = (state: State, path: string[], query: Query): SingleQueryState | undefined => {
   // console.log('Query State Selector', state);
   const pathInQueries = [...path, '__state', queryToString(query)];
-  return get(state.firebase.queries, pathInQueries);
+  return get(state.hypract.firebase.queries, pathInQueries);
 }

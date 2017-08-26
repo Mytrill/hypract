@@ -1,11 +1,23 @@
+
 import * as React from 'react';
 export { React };
 
 import * as mui from 'material-ui';
 export { mui };
 
+import * as redux from 'redux';
+export { redux };
+
+import * as reactRedux from 'react-redux';
+export { reactRedux };
+
+import * as actions from './actions';
+export { actions };
+
 export { hypract } from './hypract';
-export { reducer, State } from './reducer';
+
+import * as reducer from './reducer';
+export { reducer };
 
 import * as core from './core';
 export { core };
