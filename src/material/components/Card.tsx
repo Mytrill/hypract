@@ -25,31 +25,22 @@ export const CardHeader = (props: CardHeaderProps) => {
       toString(props.subtitle, props)) : 
     undefined;
 
-  return <M.CardHeader title={title} subheader={subtitle} />;
+  return <M.CardHeader title={title} subtitle={subtitle} />;
 }
 
 /* --------------------------------------------------------------------- */
 
-export interface CardContentProps {
-  // collapsible?: boolean;
-}
-
-export const CardContent = (props: CardContentProps & ComponentProps) => {
-  // const conf = props.conf;
-  // if(conf.collapsible) {
-  // }
-  return <M.CardContent>{element(props.children, props)}</M.CardContent>;
-}
+// TODO add other card features
 
 /* --------------------------------------------------------------------- */
 
 export interface CardProps {
-  raised?: boolean;
+  expandable?: boolean
 }
 
 export const Card = (props: CardProps & ComponentProps) => {
-  // console.log('rendering card', props);
-  return <MCard raised={props.raised}>{element(props.children, props)}</MCard>;
+  const { expandable = false, ...rest } = props;
+  return <MCard expandable={expandable}>{element(rest.children, rest)}</MCard>;
 }
 
 /* --------------------------------------------------------------------- */
