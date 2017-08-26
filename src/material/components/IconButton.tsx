@@ -5,11 +5,12 @@ import MuiIconButton from 'material-ui/IconButton';
 export interface IconButtonProps {
   materialIconName?: string;
   tooltip?: string;
+  style?: React.CSSProperties
   dispatchOnClick?(props: any, state: any, e: React.MouseEvent<any>): Action;
 }
 
 export function IconButton(props: IconButtonProps, { store }) {
-  const { materialIconName, tooltip, dispatchOnClick, ...rest } = props;
+  const { materialIconName, tooltip, dispatchOnClick, style, ...rest } = props;
 
   const handleEvent = (e: React.MouseEvent<any>) => {
     if(!dispatchOnClick) {
@@ -21,5 +22,5 @@ export function IconButton(props: IconButtonProps, { store }) {
     }
   }
 
-  return <MuiIconButton iconClassName="material-icons" tooltip={tooltip} onClick={handleEvent}>{materialIconName}</MuiIconButton>;
+  return <MuiIconButton iconClassName="material-icons" tooltip={tooltip} onClick={handleEvent} style={style} >{materialIconName}</MuiIconButton>;
 }
