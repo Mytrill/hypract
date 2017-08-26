@@ -21,7 +21,7 @@ const IfRaw = (props: IfRawProps & ComponentProps) => {
   const { conditionMet, children, ...rest } = props;
 
   const rendered = elements(children, rest);
-  const toRender = rendered.filter(child => conditionMet || child.type !== Else);
+  const toRender = rendered.filter(child => conditionMet || child.type === Else);
 
   if(toRender.length === 1) {
     return toRender[0];
@@ -33,4 +33,4 @@ const mapStateToProps = (state:any, ownProps: IfProps) => ({
   conditionMet: ownProps.condition(state, ownProps)
 })
 
-export const If = connect(mapStateToProps)(IfRaw);
+export const If: React.StatelessComponent<IfProps> = connect(mapStateToProps)(IfRaw);
