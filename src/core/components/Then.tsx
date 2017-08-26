@@ -1,11 +1,15 @@
 import * as React from 'react';
 
 import { ComponentProps } from '../../types';
+import { elements } from '../../element';
 
 export interface ThenProps {
-
+  conditionMet?: boolean
 }
 
-export const Then = ({ children }: ThenProps & ComponentProps) => {
-  return <div>{children}</div>;
+export const Then = ({ conditionMet, children, ...rest }: ThenProps & ComponentProps) => {
+  if(conditionMet) {
+    return <div>{elements(children, rest)}</div>;
+  }
+  return <div></div>;
 }
