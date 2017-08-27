@@ -37,7 +37,7 @@ const reducers = {
   [actions.DATABASE_PUSH_SUCCESS]: <any> pushSuccess
 }
 
-export const reducer = (state: State = {}, action: Action<any>): State => {
+export const reducer = (initial: State = {}) => (state: State = initial, action: Action<any>): State => {
 
   if(reducers[action.type]) {
     return reducers[action.type](state, action);

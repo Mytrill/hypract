@@ -14,12 +14,20 @@ export interface HypractState {
 }
 
 /**
+ * The hypract specific state.
+ */
+export interface HypractInitialState {
+  firebase?: firebase.State;
+  ui?: ui.State;
+}
+
+/**
  * The reducer for the hypract slice of state.
  */
-export const hypractReducer = combineReducers<HypractState>({
-  firebase: firebase.reducer,
+export const hypractReducer = (initial: Partial<HypractState> = {}) => combineReducers<HypractState>({
+  firebase: firebase.reducer(initial.firebase),
   form: form.reducer,
-  ui: ui.reducer
+  ui: ui.reducer(initial.ui)
 });
 
 /**

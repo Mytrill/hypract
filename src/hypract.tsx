@@ -11,12 +11,13 @@ import { State, hypractReducer } from './reducer';
 export interface HypractConf {
   appReducer?: Reducer<any>;
   useLogger?: boolean;
+  initialState?: any;
 }
 
-export const hypract = (App: ReactElement, { appReducer, useLogger }: HypractConf = {}) => {
+export const hypract = (App: ReactElement, { appReducer, useLogger, initialState = {} }: HypractConf = {}) => {
   const reducer = combineReducers<State>({
     app: appReducer,
-    hypract: hypractReducer
+    hypract: hypractReducer(initialState)
   })
   const store = createStore(reducer, useLogger ? applyMiddleware(thunk, logger) : applyMiddleware(thunk));
   render(

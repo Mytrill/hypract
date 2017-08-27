@@ -10,8 +10,8 @@ export interface State {
   queries: queries.State;
 }
 
-export const reducer = combineReducers<State>({
-  database: database.reducer,
-  errors: errors.reducer,
-  queries: queries.reducer
+export const reducer = (initial: Partial<State> = {}) => combineReducers<State>({
+  database: database.reducer(initial.database),
+  errors: errors.reducer(initial.errors),
+  queries: queries.reducer(initial.queries)
 });

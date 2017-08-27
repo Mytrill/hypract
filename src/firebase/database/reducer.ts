@@ -5,7 +5,7 @@ import * as actions from '../actions';
 
 export type State = any;
 
-export const reducer = (state: State = {}, action: Action<any>): State => {
+export const reducer = (initial: State = {}) => (state: State = initial, action: Action<any>): State => {
   switch(action.type) {
     case actions.DATABASE_QUERY_SUCCESS:
       // return u.updateIn(action.payload.path, action.payload.result, state);

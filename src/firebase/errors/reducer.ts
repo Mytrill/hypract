@@ -5,7 +5,7 @@ import { push } from '../../immutable';
 
 export type State = OperationError[];
 
-export const reducer = (state: State = [], action: Action<any>): State => {
+export const reducer = (initial: State = []) => (state: State = initial, action: Action<any>): State => {
   switch(action.type) {
     case actions.DATABASE_QUERY_ERROR:
       return push(state, { message: action.payload.error });
