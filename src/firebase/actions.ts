@@ -6,15 +6,15 @@ import { queryStateSelector } from './selectors';
 import { Query, SingleQueryState } from './types';
 import { apiActionCreator, queryToString } from './utils';
 
-export const DATABASE_QUERY = 'firebase/DATABASE_QUERY';
-export const DATABASE_QUERY_SUCCESS = 'firebase/DATABASE_QUERY_SUCCESS';
-export const DATABASE_QUERY_ERROR = 'firebase/DATABASE_QUERY_ERROR';
-export const DATABASE_PUSH = 'firebase/DATABASE_PUSH';
-export const DATABASE_PUSH_SUCCESS = 'firebase/DATABASE_PUSH_SUCCESS';
-export const DATABASE_PUSH_ERROR = 'firebase/DATABASE_PUSH_ERROR';
-export const DATABASE_UPDATE = 'firebase/DATABASE_UPDATE';
-export const DATABASE_UPDATE_SUCCESS = 'firebase/DATABASE_UPDATE_SUCCESS';
-export const DATABASE_UPDATE_ERROR = 'firebase/DATABASE_UPDATE_ERROR';
+export const DATABASE_QUERY = 'hypract/firebase/DATABASE_QUERY';
+export const DATABASE_QUERY_SUCCESS = 'hypract/firebase/DATABASE_QUERY_SUCCESS';
+export const DATABASE_QUERY_ERROR = 'hypract/firebase/DATABASE_QUERY_ERROR';
+export const DATABASE_PUSH = 'hypract/firebase/DATABASE_PUSH';
+export const DATABASE_PUSH_SUCCESS = 'hypract/firebase/DATABASE_PUSH_SUCCESS';
+export const DATABASE_PUSH_ERROR = 'hypract/firebase/DATABASE_PUSH_ERROR';
+export const DATABASE_UPDATE = 'hypract/firebase/DATABASE_UPDATE';
+export const DATABASE_UPDATE_SUCCESS = 'hypract/firebase/DATABASE_UPDATE_SUCCESS';
+export const DATABASE_UPDATE_ERROR = 'hypract/firebase/DATABASE_UPDATE_ERROR';
 
 export interface QueryPayload {
   path: string[];
