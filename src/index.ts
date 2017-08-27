@@ -36,3 +36,6 @@ export { middlewares };
 
 import * as types from './types';
 export { types };
+
+import * as ui from './ui';
+export { ui };

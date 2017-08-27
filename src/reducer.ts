@@ -2,6 +2,7 @@ import { combineReducers, AnyAction } from 'redux';
 
 import * as firebase from './firebase';
 import * as form from './form';
+import * as ui from './ui';
 
 /**
  * The hypract specific state.
@@ -9,6 +10,7 @@ import * as form from './form';
 export interface HypractState {
   firebase: firebase.State;
   form: form.State;
+  ui: ui.State;
 }
 
 /**
@@ -17,6 +19,7 @@ export interface HypractState {
 export const hypractReducer = combineReducers<HypractState>({
   firebase: firebase.reducer,
   form: form.reducer,
+  ui: ui.reducer
 });
 
 /**
