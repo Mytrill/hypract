@@ -3,9 +3,8 @@ import * as React from 'react';
 import { ComponentProps } from '../../types';
 import { elements } from '../../element';
 
-
 export interface ElseProps {
-  conditionMet?: boolean
+  conditionMet?: any
 }
 
 export const Else = ({ conditionMet, children, ...rest }: ElseProps & ComponentProps) => {

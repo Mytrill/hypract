@@ -1,6 +1,4 @@
-export * from './connectToUi';
+export * from './actions';
 export * from './reducer';
 export * from './selectors';
-
-import * as actions from './actions';
-export { actions };
+export * from './utils';

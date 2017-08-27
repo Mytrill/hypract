@@ -6,3 +6,4 @@ lib-esm
 examples/npm-debug.log
 examples/firebase-debug.log
 examples/public/bundle.js
+_old

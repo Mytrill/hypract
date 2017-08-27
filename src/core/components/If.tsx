@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 
-import { ComponentProps, Condition, WithCondition } from '../../types';
-import { computeConditionMet } from '../../utils';
+import { ComponentProps } from '../../types';
+import { wrapInSelectors, Selector } from '../../selectors';
 import { elements } from '../../element';
-import { Else } from './Else';
 
-export interface IfProps extends WithCondition {
-
+export interface IfProps {
+  condition: Selector;
 }
 
 interface IfRawProps {
@@ -19,8 +17,4 @@ const IfRaw = (props: IfRawProps & ComponentProps) => {
   return <div>{elements(children, rest)}</div>;
 }
 
-const mapStateToProps = (state:any, ownProps: IfProps) => ({
-  conditionMet: computeConditionMet(state, ownProps)
-})
-
-export const If: React.ComponentClass<IfProps> = connect(mapStateToProps)(IfRaw);
+export const If = wrapInSelectors<IfProps>({ condition: 'conditionMet' })(IfRaw);

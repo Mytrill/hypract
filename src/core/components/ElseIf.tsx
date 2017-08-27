@@ -17,20 +17,19 @@
 // }
 
 import * as React from 'react';
-import { connect } from 'react-redux';
 
-import { ComponentProps, Condition, WithCondition } from '../../types';
-import { computeConditionMet } from '../../utils';
+import { ComponentProps } from '../../types';
+import { wrapInSelectors, WithSelector } from '../../selectors';
 import { elements } from '../../element';
 import { Else } from './Else';
 
-export interface ElseIfProps extends WithCondition {
-  conditionMet: boolean;
+export interface ElseIfProps extends WithSelector {
+  condition?: any;
 }
 
 interface ElseIfRawProps {
-  conditionMet: boolean;
-  elseIfConditionMet: boolean;
+  conditionMet?: any;
+  elseIfConditionMet?: any;
 }
 
 const ElseIfRaw = ({ conditionMet, elseIfConditionMet, children, ...rest }: ElseIfRawProps & ComponentProps) => {
@@ -40,9 +39,4 @@ const ElseIfRaw = ({ conditionMet, elseIfConditionMet, children, ...rest }: Else
   return <div>{elements(children, rest)}</div>;
 }
 
-const mapStateToProps = (state:any, ownProps: ElseIfProps) => ({
-  // this || prevents the second condition to be evaluated if the if condition is already met.
-  elseIfConditionMet: ownProps.conditionMet || computeConditionMet(state, ownProps)
-})
-
-export const ElseIf: React.ComponentClass<ElseIfProps> = connect(mapStateToProps)(ElseIfRaw);
+export const ElseIf = wrapInSelectors({ condition: 'elseIfConditionMet' })(ElseIfRaw);

@@ -1,26 +1,21 @@
 import * as React from 'react';
-import { Dispatch, Action } from 'redux';
+import { Dispatch, Store } from 'redux';
 import MuiIconButton from 'material-ui/IconButton';
+
+import { Action, ActionFactory, actionToHandler } from '../../actions';
 
 export interface IconButtonProps {
   materialIconName?: string;
   tooltip?: string;
   style?: React.CSSProperties
-  dispatchOnClick?(props: any, state: any, e: React.MouseEvent<any>): Action;
+  onClick?: ActionFactory | Action;
 }
 
 export function IconButton(props: IconButtonProps, { store }) {
-  const { materialIconName, tooltip, dispatchOnClick, style, ...rest } = props;
-
-  const handleEvent = (e: React.MouseEvent<any>) => {
-    if(!dispatchOnClick) {
-      return;
-    }
-    const action = dispatchOnClick(props, store.getState(), e);
-    if(action) {
-      store.dispatch(action);
-    }
-  }
-
-  return <MuiIconButton iconClassName="material-icons" tooltip={tooltip} onClick={handleEvent} style={style} >{materialIconName}</MuiIconButton>;
+  const { materialIconName, tooltip, onClick, style, ...rest } = props;
+  return (
+    <MuiIconButton iconClassName="material-icons" tooltip={tooltip} onClick={actionToHandler(onClick, props, store)} style={style}>
+      {materialIconName}
+    </MuiIconButton>
+  );
 }
