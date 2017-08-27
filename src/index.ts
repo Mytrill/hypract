@@ -34,6 +34,9 @@ export { material };
 import * as middlewares from './middlewares';
 export { middlewares };
 
+import * as selectors from './selectors';
+export { selectors };
+
 import * as types from './types';
 export { types };
 
