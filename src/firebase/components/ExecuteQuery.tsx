@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import { State } from '../../reducer';
 import * as actions from '../actions';
-import { queryStateSelector } from '../selectors';
+import { selectQueryState } from '../selectors';
 import { Query, SingleQueryState } from '../types';
 import { ComponentProps } from '../../types';
 import { Data, DataOrArray, toString, toStringArray } from '../../data';
@@ -44,7 +44,7 @@ class ExecuteQueryRaw extends React.Component<ExecuteQueryRawProps> {
 }
 
 const mapStateToProps = (state: State, props: ExecuteQueryProps) => ({
-  queryState: queryStateSelector(state, props.path, props.query)
+  queryState: selectQueryState(state, props.path, props.query)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({

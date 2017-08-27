@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Query } from '../types';
 import { State } from '../../reducer';
-import { querySelector } from '../selectors';
+import { selectQueryResults } from '../selectors';
 import { Data, DataOrArray, toString, toStringArray } from '../../data';
 import { element } from '../../element';
 import { ComponentProps } from '../../types';
@@ -18,7 +18,7 @@ interface QueryResultsRawProps extends QueryResultsProps, ComponentProps {
 }
 
 const mapStateToProps = (state: State, ownProps: QueryResultsProps) => ({
-  results: querySelector(state, ownProps.path, ownProps.query),
+  results: selectQueryResults(state, ownProps.path, ownProps.query),
 });
 
 const QueryResultsRaw = (props: QueryResultsRawProps) => {

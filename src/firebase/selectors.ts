@@ -19,7 +19,7 @@ import { Query, SingleQueryState } from './types';
 // }
 
 
-export const querySelector = (state: State, path: string[], query: Query): any => {
+export const selectQueryResults = (state: State, path: string[], query: Query): any => {
   
   // console.log('Query Selector', state);
   
@@ -44,7 +44,7 @@ export const querySelector = (state: State, path: string[], query: Query): any =
   return data;
 }
 
-export const queryStateSelector = (state: State, path: string[], query: Query): SingleQueryState | undefined => {
+export const selectQueryState = (state: State, path: string[], query: Query): SingleQueryState | undefined => {
   // console.log('Query State Selector', state);
   const pathInQueries = [...path, '__state', queryToString(query)];
   return get(state.hypract.firebase.queries, pathInQueries);

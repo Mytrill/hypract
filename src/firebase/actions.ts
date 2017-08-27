@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { get } from 'dot-prop-immutable';
 
 import { database } from './api';
-import { queryStateSelector } from './selectors';
+import { selectQueryState } from './selectors';
 import { Query, SingleQueryState } from './types';
 import { apiActionCreator, queryToString } from './utils';
 
@@ -34,7 +34,7 @@ export interface QueryErrorPayload {
 }
 
 const queryCacheHit = (state: any, path: string[], param: Query): boolean => {
-  const query = queryStateSelector(state, path, param);
+  const query = selectQueryState(state, path, param);
 
   // console.log('Computing cache hit', query);
 
