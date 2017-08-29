@@ -2,9 +2,6 @@
 import * as React from 'react';
 export { React };
 
-import * as materialUi from 'material-ui';
-export { materialUi };
-
 import * as redux from 'redux';
 export { redux };
 
@@ -27,9 +24,6 @@ export { firebase };
 
 import * as form from './form';
 export { form };
-
-import * as material from './material';
-export { material };
 
 import * as middlewares from './middlewares';
 export { middlewares };
