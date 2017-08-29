@@ -15,8 +15,8 @@
   },
   "scripts": {
     "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && npm run build:dts",
-    "build:lib": "shx rm -rf lib lib-esm && tsc && tsc -m es6 --outDir lib-esm && npm run build:dts",
     "build:dts": "dts-bundle --name hypract --main lib/index.d.ts --baseDir lib --out ../dist/hypract.d.ts",
+    "build:profile": "webpack --env=profile",
     "clean": "shx rm -rf dist lib lib-esm",
     "example": "webpack "
   },
