@@ -2,7 +2,6 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { applyMiddleware, createStore, Reducer, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { ReactElement } from './types';
 import { thunk, logger } from './middlewares';
@@ -20,9 +19,7 @@ export const hypract = (App: ReactElement, { appReducer, useLogger, initialState
   const store = createStore(reducer, useLogger ? applyMiddleware(thunk, logger) : applyMiddleware(thunk));
   render(
     <Provider store={store}>
-      <MuiThemeProvider>
-        {App}
-      </MuiThemeProvider>
+      {App}
     </Provider>
   ,document.body);
 }
