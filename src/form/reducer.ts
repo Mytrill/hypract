@@ -1,6 +1,4 @@
-import { reducer } from 'redux-form';
+import { reducer, FormStateMap } from 'redux-form';
 
-// should be FormStateMap but the @types/redux-form is bugged...
-export type State = any;
-
+export type State = FormStateMap;
 export { reducer };
