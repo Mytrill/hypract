@@ -1,10 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
 
 import { init, State as FirebaseState, reducer as FirebaseReducer, actions } from '../../src/firebase';
-import { State, reducer, middlewares } from '../../src';
+import { HypractState, hypractReducer } from '../../src/reducer';
+import { logger, thunk } from '../../src/middlewares';
 
-const store = createStore<State>(reducer, applyMiddleware(middlewares.thunk, middlewares.logger));
+
+const store = createStore<HypractState>(hypractReducer(), applyMiddleware(thunk, logger));
 
 
 init({ databaseURL: 'https://learn-project-dev.firebaseio.com' });
