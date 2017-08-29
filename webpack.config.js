@@ -1,3 +1,4 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 const path = require('path');
 
@@ -29,7 +30,8 @@ module.exports = {
       minimize: true,
       sourceMap: true,
       include: /\.min\.js$/,
-    })
+    }),
+    // new BundleAnalyzerPlugin()
   ],
   module: {
     loaders: [{
