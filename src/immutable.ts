@@ -13,8 +13,8 @@ export const get = (object: any, path: number | string | Array<number | string>)
 
 /**
  * Merges a value.  The target value must be an object, array, null, or undefined.
- * If target is an object, Object.assign({}, target, param) is used.
- * If target an array, target.concat(param) is used.
+ * If target is an object, Object.assign({}, target, val) is used.
+ * If target an array, target.concat(val) is used.
  * If target is null or undefined, the value is simply set.
  * 
  * @param object The object to evaluate.
