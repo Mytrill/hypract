@@ -42,6 +42,7 @@ Hyper productive components for Firebase built with preact, material-ui and redu
 [ ] files  
 [ ] reactive queries  
 [ ] messaging  
+[ ] simulate push  
 
 # Modules
 

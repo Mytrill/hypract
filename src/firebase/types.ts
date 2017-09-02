@@ -1,17 +1,17 @@
-import { Data } from '../data';
+import { Data } from '../data'
 
 export interface OperationError {
-  message: string;
+  message: string
 }
 
 export interface SingleQueryState {
-  done: boolean;
-  success: boolean;
+  done: boolean
+  success: boolean
 }
 
 export interface QueryState {
-  all?: SingleQueryState;
-  [name: string]: SingleQueryState;  
+  all?: SingleQueryState
+  [name: string]: SingleQueryState
 }
 
 export interface QueryStateTreeNode {
@@ -19,17 +19,17 @@ export interface QueryStateTreeNode {
 }
 
 export interface QueryStateTree {
-  [child: string]: QueryStateTree;
+  [child: string]: QueryStateTree
 }
 
-export type QueryStates = QueryStateTreeNode & QueryStateTreeNode;
+export type QueryStates = QueryStateTreeNode & QueryStateTreeNode
 
 export interface Query {
-  where?: string | string[];
-  equals?: string;
+  where?: string | string[]
+  equals?: string
 }
 
 export interface UnresolvedQuery {
-  where?: Data | Data[];
-  equals?: Data;
+  where?: Data | Data[]
+  equals?: Data
 }

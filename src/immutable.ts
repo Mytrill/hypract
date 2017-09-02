@@ -1,3 +1,4 @@
+import { isObject } from 'lodash'
 import { get as dotGet, merge as dotMerge, set as dotSet } from 'dot-prop-immutable'
 
 /**
@@ -22,8 +23,27 @@ export const get = (object: any, path: number | string | Array<number | string>)
  * @param val The value to merge into the target value.
  * @return the newly created object
  */
-export const merge = (object: any, path: number | string | Array<number | string>, val: any): any => {
+export const mergeShallow = (object: any, path: number | string | Array<number | string>, val: any): any => {
   return dotMerge(object, path, val)
+}
+
+const mergeObjectsDeep = (target, source) => {
+  let output = Object.assign({}, target)
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach(key => {
+      if (isObject(source[key])) {
+        if (!(key in target)) Object.assign(output, { [key]: source[key] })
+        else output[key] = mergeObjectsDeep(target[key], source[key])
+      } else {
+        Object.assign(output, { [key]: source[key] })
+      }
+    })
+  }
+  return output
+}
+
+export const mergeDeep = (object: any, path: number | string | Array<number | string>, value: any): any => {
+  return set(object, path, mergeObjectsDeep(get(object, path), value))
 }
 
 /**

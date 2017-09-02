@@ -9,18 +9,7 @@
     "outDir": "lib",
     "experimentalDecorators": true,
     "removeComments": true,
-    "lib": [
-      "es6",
-      "es2017",
-      "dom"
-    ]
+    "lib": ["es6", "es2017", "dom"]
   },
-  "exclude": [
-    "dist",
-    "lib",
-    "lib-esm",
-    "node_modules",
-    "examples",
-    "_old"
-  ]
+  "exclude": ["dist", "lib", "lib-esm", "node_modules", "examples", "_old", "_playground"]
 }

@@ -1,33 +1,35 @@
-import { conf } from './core';
-import { Query } from '../types';
+import { conf } from './core'
+import { Query } from '../types'
+
+const GENERATED_ID_PATH = '__GENERATED_ID'
 
 const handleFirebaseResponse = response => {
-  if(response.status !== 200) {
-    throw new Error(response.statusText);
+  if (response.status !== 200) {
+    throw new Error(response.statusText)
   }
 
-  return response.json();
-};
+  return response.json()
+}
 
 const encodeQueryToUrlParams = (query: Query): string => {
-  if(query.where && query.equals) {
+  if (query.where && query.equals) {
     // compute the string value of the where clause
-    let where;
-    if(typeof query.where === 'string') {
-      where = query.where;
-    // } else if (query.where === Where.KEY) {
-    //   where = '$key';
-    // } else if (query.where === Where.VALUE) {
-    //   where = '$value';
+    let where
+    if (typeof query.where === 'string') {
+      where = query.where
+      // } else if (query.where === Where.KEY) {
+      //   where = '$key';
+      // } else if (query.where === Where.VALUE) {
+      //   where = '$value';
     } else {
       // must be an array
-      where = query.where.join('/');
+      where = query.where.join('/')
     }
 
-    return `orderBy="${where}&equalTo=${JSON.stringify(query.equals)}`;
+    return `orderBy="${where}&equalTo=${JSON.stringify(query.equals)}`
   }
-  return '';
-} 
+  return ''
+}
 
 /**
  * Query the given path.
@@ -37,8 +39,7 @@ const encodeQueryToUrlParams = (query: Query): string => {
  * @return a promise of the value at the given path
  */
 export const query = (path: string, query: Query): any => {
-  return fetch(`${conf.databaseURL}/${path}.json?${encodeQueryToUrlParams(query)}`)
-  .then(handleFirebaseResponse);
+  return fetch(`${conf.databaseURL}/${path}.json?${encodeQueryToUrlParams(query)}`).then(handleFirebaseResponse)
 }
 
 /**
@@ -53,10 +54,20 @@ export const push = (path: string, value: any): Promise<string> => {
     method: 'POST',
     body: JSON.stringify(value)
   })
-  .then(handleFirebaseResponse)
-  .then(body => {
-    return body.name;
-  });
+    .then(handleFirebaseResponse)
+    .then(body => {
+      return body.name
+    })
+}
+
+/**
+ * Generates a unique ID in the server and returns a promise containing it.
+ * 
+ * This method will return a rejected promise if the user calling doesn't have the right to write on the path '__GENERATED_ID'.
+ * @return A promise of the generated ID
+ */
+export const generateId = (): Promise<String> => {
+  return push(GENERATED_ID_PATH, null)
 }
 
 /**
@@ -70,6 +81,5 @@ export const update = (path: string, update: any): Promise<any> => {
   return fetch(`${conf.databaseURL}/${path}.json`, {
     method: 'PATCH',
     body: JSON.stringify(update)
-  })
-  .then(handleFirebaseResponse);
+  }).then(handleFirebaseResponse)
 }
