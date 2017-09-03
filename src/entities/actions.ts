@@ -1,7 +1,11 @@
+import { isEmpty } from 'lodash'
 import { Dispatch } from 'redux'
 
-import { Action, actionCreator, actionCreatorWithoutPayload } from '../actions'
-import { getDatasource, C_UDResults } from './datasource'
+import { State } from '../reducer'
+import * as datasources from './datasources'
+import { selectPendingEdits, selectQueryState } from './selectors'
+import { Action, actionCreator, actionCreatorWithError } from '../actions'
+import { Create, Query, Update, Delete, Edit, EntitiesById } from './types'
 
 // # Action types
 
@@ -21,18 +25,50 @@ export type DataAction = Action<QueryActionPayload> | Action<C_UDActionPayload> 
 
 // ## Query Action
 
-export interface QueryActionPayload {
-  entityType: string
-  where?: Where
+export interface QueryActionPayload extends Query {
+  datasource: string
 }
 
-export const query = actionCreator<QueryActionPayload>(QUERY_ACTION)
+export interface QueryActionSuccessPayload {
+  source: QueryActionPayload
+  results: EntitiesById
+}
 
-// ### types
+export interface QueryActionErrorPayload {
+  message: string
+  source: QueryActionPayload
+}
 
-export interface Where {
-  attribute: string
-  equals: any
+// actual actions
+const query_start = actionCreator<QueryActionPayload>(QUERY_ACTION)
+const query_success = actionCreator<QueryActionSuccessPayload>(QUERY_ACTION_SUCCESS)
+const query_error = actionCreatorWithError<QueryActionErrorPayload>(QUERY_ACTION_ERROR)
+
+// thunk action creator
+export const query = (payload: QueryActionPayload) => {
+  return (dispatch: Dispatch<State>, getState: () => State) => {
+    // check the cache
+    const queryState = selectQueryState(getState(), payload)
+    if (queryState && (!queryState.done || queryState.success)) {
+      return
+    }
+
+    dispatch(query_start(payload))
+
+    const datasource = datasources.get(payload.datasource)
+    if (!datasource) {
+      throw new Error('No datasource registered with name ' + payload.datasource)
+    }
+
+    return datasource
+      .query(payload)
+      .then((results: EntitiesById) => {
+        return dispatch(query_success({ results, source: payload }))
+      })
+      .catch((e: Error) => {
+        return dispatch(query_error({ message: 'Query failed: ' + e.message, source: payload }))
+      })
+  }
 }
 
 // ## Edit Action
@@ -40,10 +76,12 @@ export interface Where {
 export interface C_UDActionPayload {
   edits: Edit[]
   datasource: string
-  dryRun?: boolean
+  localOnly?: boolean
 }
 
-export interface C_UDActionSuccessPayload extends C_UDActionPayload {}
+export interface C_UDActionSuccessPayload {
+  source: C_UDActionPayload
+}
 
 export interface C_UDActionErrorPayload {
   message: string
@@ -52,38 +90,28 @@ export interface C_UDActionErrorPayload {
 
 // the actual action creator
 const c_ud_start = actionCreator<C_UDActionPayload>(C_UD_ACTION)
-const c_ud_success = actionCreator<C_UDActionPayload>(C_UD_ACTION_SUCCESS)
-const c_ud_error = actionCreator<C_UDActionErrorPayload>(C_UD_ACTION_ERROR)
+const c_ud_success = actionCreator<C_UDActionSuccessPayload>(C_UD_ACTION_SUCCESS)
+const c_ud_error = actionCreatorWithError<C_UDActionErrorPayload>(C_UD_ACTION_ERROR)
 
 // the thunk action creator
 export const c_ud = (payload: C_UDActionPayload) => {
-  return (dispatch: Dispatch<any>, getState: () => any) => {
+  return (dispatch: Dispatch<State>, getState: () => State) => {
     dispatch(c_ud_start(payload))
 
-    const datasource = getDatasource(payload.datasource)
+    const datasource = datasources.get(payload.datasource)
 
-    datasource
+    return datasource
       .c_ud(payload)
-      .then((result: C_UDResults) => {
-        dispatch(c_ud_success(payload))
+      .then(() => {
+        return dispatch(c_ud_success({ source: payload }))
       })
       .catch((e: Error) => {
-        dispatch(c_ud_error({ message: 'Operation failed: ' + e.message, source: payload }))
+        return dispatch(c_ud_error({ message: 'Operation failed: ' + e.message, source: payload }))
       })
   }
 }
 
 // ### edits
-
-export type Edit = Create | Update | Delete
-
-export interface Create {
-  type: 'Create'
-  entityType: string
-  entity: any
-  /** The id to set to the created entity. This field should be filled in be the data source. */
-  id?: string
-}
 
 const create = (entityType: string, entity: any, id?: string): Create => ({
   type: 'Create',
@@ -92,25 +120,12 @@ const create = (entityType: string, entity: any, id?: string): Create => ({
   id
 })
 
-export interface Update {
-  type: 'Update'
-  entityType: string
-  id: string
-  updates?: any
-}
-
 const update = (entityType: string, id: string, updates: any): Update => ({
   type: 'Update',
   entityType,
   id,
   updates
 })
-
-export interface Delete {
-  type: 'Delete'
-  entityType: string
-  id: string
-}
 
 const del = (entityType: string, id: string): Delete => ({
   type: 'Delete',
@@ -127,7 +142,52 @@ export const edits = {
 // ## Commit Action
 
 export interface CommitActionPayload {
-  // for now, everything gets commited.
+  datasource: string
 }
 
-export const commit = actionCreatorWithoutPayload<CommitActionPayload>(COMMIT_ACTION)
+export interface CommitActionSuccessPayload {
+  source: CommitActionPayload
+  edits: Edit[]
+}
+
+export interface CommitActionErrorPayload {
+  message: string
+  source: CommitActionPayload
+  edits: Edit[]
+}
+
+const commit_start = actionCreator<CommitActionPayload>(COMMIT_ACTION)
+const commit_success = actionCreator<CommitActionSuccessPayload>(COMMIT_ACTION_SUCCESS)
+const commit_error = actionCreatorWithError<CommitActionErrorPayload>(COMMIT_ACTION_ERROR)
+
+// thunk action creator
+export const commit = (payload: CommitActionPayload) => {
+  return (dispatch: Dispatch<State>, getState: () => State) => {
+    dispatch(commit_start(payload))
+
+    const edits = selectPendingEdits(getState())[payload.datasource]
+    if (isEmpty(edits)) {
+      return dispatch(commit_success({ source: payload, edits }))
+    }
+
+    const datasource = datasources.get(payload.datasource)
+    if (!datasource) {
+      throw new Error('No datasource registered with name ' + payload.datasource)
+    }
+
+    return datasource
+      .commit(edits)
+      .then(() => {
+        return dispatch(commit_success({ source: payload, edits }))
+      })
+      .catch((error: Error) => {
+        return dispatch(
+          commit_error({
+            source: payload,
+            edits,
+            message: 'Failed to commit in datasource ' + datasource.name + ' reason: ' + error.message
+          })
+        )
+      })
+  }
+}

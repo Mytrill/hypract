@@ -3,10 +3,11 @@ import { AnyAction, combineReducers } from 'redux'
 
 import { Action } from '../actions'
 import * as actions from './actions'
-import * as data from './data/reducer'
-import * as edits from './edits/reducer'
-import * as errors from './errors/reducer'
-import * as queries from './queries/reducer'
+
+import * as data from './data'
+import * as edits from './edits'
+import * as errors from './errors'
+import * as queries from './queries'
 
 // # State
 

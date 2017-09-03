@@ -34,7 +34,7 @@ export function actionCreatorWithError<P>(type: string): (payload: P) => Action<
   return (payload: P) => ({
     type,
     payload,
-    error: payload instanceof Error ? true : typeof payload === 'object' && payload['error'] ? true : undefined
+    error: true
   })
 }
 

@@ -1,6 +1,6 @@
-import { QueryActionPayload } from './actions'
+import { Query } from './types'
 
-export const toString = (query: QueryActionPayload): string => {
+export const toString = (query: Query): string => {
   if (!query.where || !query.where.attribute) {
     return 'all'
   }

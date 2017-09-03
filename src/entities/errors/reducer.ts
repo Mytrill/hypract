@@ -1,14 +1,11 @@
 import { Action } from '../../actions'
 import * as actions from '../actions'
+import { OperationError } from '../types'
 import { push } from '../../immutable'
 
 // # State
 
 export type State = OperationError[]
-
-export interface OperationError {
-  message: string
-}
 
 // # reducer
 
