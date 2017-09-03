@@ -1,12 +1,9 @@
 # hypract
 
-Hyper productive components for Firebase built with preact, material-ui and redux
+Hyper productive reducers, action creators, selectors and components for Firebase built with preact and redux
 
  - preact
  - redux
- - redux-form
- - material-ui
-
 
 # Todo
 

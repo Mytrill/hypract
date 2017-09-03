@@ -1,7 +1,8 @@
 {
   "name": "hypract",
   "version": "0.0.6",
-  "description": "Hyper productive components for Firebase built with preact, material-ui and redux",
+  "description":
+    "Hyper productive reducers, action creators, selectors and components for Firebase built with preact and redux",
   "license": "MIT",
   "main": "dist/hypract.js",
   "minified:main": "dist/hypract.min.js",
