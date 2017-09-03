@@ -3,13 +3,18 @@ import { isEqual } from 'lodash'
 
 import { QueryResults } from './QueryResults'
 import { ExecuteQuery } from './ExecuteQuery'
-import { Query as FirebaseQuery, UnresolvedQuery } from '../types'
+import { Query as FirebaseQuery } from '../types'
 import { Data, DataOrArray, toString, toStringArray } from '../../data'
 import { element } from '../../element'
 
 export interface QueryProps {
   path: DataOrArray
   query?: UnresolvedQuery
+}
+
+export interface UnresolvedQuery {
+  where?: Data | Data[]
+  equals?: Data
 }
 
 const resolveQuery = (query: UnresolvedQuery, props: any): FirebaseQuery => {

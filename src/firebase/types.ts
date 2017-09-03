@@ -28,8 +28,3 @@ export interface Query {
   where?: string | string[]
   equals?: string
 }
-
-export interface UnresolvedQuery {
-  where?: Data | Data[]
-  equals?: Data
-}
