@@ -21,9 +21,6 @@ export { core }
 import * as firebase from './firebase'
 export { firebase }
 
-import * as form from './form'
-export { form }
-
 import * as immutable from './immutable'
 export { immutable }
 
