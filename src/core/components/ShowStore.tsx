@@ -1,14 +1,14 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { get } from '../../immutable'
+import { get, Path } from '../../immutable'
 
-import { Data, toString } from '../../data'
+import { PropSelectorOr, Eval } from '../../propSelectors'
 import { ComponentProps } from '../../types'
 import { element } from '../../element'
 
 export interface ShowStoreProps {
-  title?: Data
-  path?: string | string[]
+  title?: PropSelectorOr<string>
+  path?: Path
   hidden?: boolean
 }
 
@@ -18,7 +18,7 @@ const showStoreRaw = (props: ShowStoreProps & ComponentProps) => {
   if (hidden) {
     return <div>{element(children, rest)}</div>
   }
-  const titleResolved = toString(title, props) || (path ? 'State for path ' + path : 'Complete State')
+  const titleResolved = Eval.toString(title, props) || (path ? 'State for path ' + path : 'Complete State')
   delete props['state']
   return (
     <div>

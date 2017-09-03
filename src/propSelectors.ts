@@ -1,5 +1,5 @@
 import React from 'react'
-import { isFunction, isString, isUndefined } from 'lodash'
+import { isArray, isFunction, isNil, isString, isUndefined, toString } from 'lodash'
 
 import { get, Path } from './immutable'
 
@@ -99,4 +99,51 @@ export const applySelectorMap = (selectors: PropSelectorMap, ownProps: any) => {
   })
 
   return result
+}
+
+export type PropSelectorOr<T> = PropSelector<T> | T | null | undefined
+
+export type PropSelectorOrArray<T> = PropSelector<T> | T | T[] | null | undefined
+
+export const Eval = {
+  toString: (data: PropSelectorOr<any>, props: any, defaultVal?: string): string | undefined => {
+    if (isNil(data)) {
+      return defaultVal
+    }
+    if (isFunction(data)) {
+      return toString(data(props))
+    }
+    return toString(data)
+  },
+  toBoolean: (data: PropSelectorOr<boolean>, props: any, defaultVal?: boolean): boolean | undefined => {
+    if (isNil(data)) {
+      return defaultVal
+    }
+    if (isFunction(data)) {
+      return data(props)
+    }
+    return data
+  },
+  toArray: <T>(data: PropSelectorOrArray<T>, props: any, defaultVal?: T[]): undefined | T[] => {
+    if (isNil(data)) {
+      return defaultVal
+    }
+
+    const res = isFunction(data) ? data(props) : data
+    if (isArray(res)) {
+      return res
+    }
+    return [res]
+  },
+  toStringArray: (data: PropSelectorOrArray<string>, props: any, defaultVal?: string[]): undefined | string[] => {
+    if (isNil(data)) {
+      return defaultVal
+    }
+
+    const res = isFunction(data) ? data(props) : data
+    if (isArray(res)) {
+      return res
+    }
+    return [toString(res)]
+  }
 }

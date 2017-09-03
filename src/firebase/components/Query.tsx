@@ -4,17 +4,17 @@ import { isEqual } from 'lodash'
 import { QueryResults } from './QueryResults'
 import { ExecuteQuery } from './ExecuteQuery'
 import { Query as FirebaseQuery } from '../types'
-import { Data, DataOrArray, toString, toStringArray } from '../../data'
+import { PropSelectorOr, PropSelectorOrArray, Eval } from '../../propSelectors'
 import { element } from '../../element'
 
 export interface QueryProps {
-  path: DataOrArray
+  path: PropSelectorOrArray<string>
   query?: UnresolvedQuery
 }
 
 export interface UnresolvedQuery {
-  where?: Data | Data[]
-  equals?: Data
+  where?: PropSelectorOrArray<string>
+  equals?: PropSelectorOr<any>
 }
 
 const resolveQuery = (query: UnresolvedQuery, props: any): FirebaseQuery => {
@@ -23,8 +23,8 @@ const resolveQuery = (query: UnresolvedQuery, props: any): FirebaseQuery => {
   }
 
   return {
-    equals: toString(query.equals, props),
-    where: toStringArray(query.where, props)
+    equals: Eval.toString(query.equals, props),
+    where: Eval.toStringArray(query.where, props)
   }
 }
 
@@ -33,7 +33,7 @@ export class Query extends React.Component<QueryProps, any> {
   query: FirebaseQuery
 
   private resolveQuery(props: QueryProps): boolean {
-    const path = toStringArray(props.path, props)
+    const path = Eval.toStringArray(props.path, props)
     const query = resolveQuery(props.query, props)
 
     const eq = isEqual(path, this.path) && isEqual(query, this.query)

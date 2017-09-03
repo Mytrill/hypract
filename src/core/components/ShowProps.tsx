@@ -1,14 +1,13 @@
 import * as React from 'react'
-import { isBoolean } from 'lodash'
-import { get } from '../../immutable'
 
-import { Data, toString } from '../../data'
+import { PropSelectorOr, Eval } from '../../propSelectors'
+import { get, Path } from '../../immutable'
 import { ComponentProps } from '../../types'
 import { element } from '../../element'
 
 export interface ShowPropsProps {
-  title?: Data
-  path?: string | string[]
+  title?: PropSelectorOr<string>
+  path?: Path
   hidden?: boolean
 }
 
@@ -17,7 +16,7 @@ export const ShowProps = (props: ShowPropsProps & ComponentProps) => {
   if (hidden) {
     return element(children, rest)
   }
-  const titleResolved = toString(title, props) || (path ? 'Props for path ' + path : 'Complete Props')
+  const titleResolved = Eval.toString(title, rest) || (path ? 'Props for path ' + path : 'Complete Props')
   const propsToShow = path ? get(props, path) : props
   return (
     <div>
