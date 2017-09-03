@@ -1,45 +1,45 @@
-import { isFunction, isString, isUndefined } from 'lodash'
+import React from 'react'
 import { connect } from 'react-redux'
+import { isFunction, isString, isUndefined } from 'lodash'
 
-import { get } from './immutable'
+import { get, Path } from './immutable'
 
 import { State } from './reducer'
 
 export interface Selector<T = any> {
-  (state: State, props: any): T
-  // usesState?: boolean; // Later on, if performance is an issue
+  (state: State, props?: any): T
 }
 
 export interface WithSelector {
   selector: Selector
 }
 
-export const state = (path: string | string[]): Selector => {
-  return (state: State, props: any) => {
+export const state = (path: Path): Selector => {
+  return (state: State) => {
     return get(state, path)
   }
 }
 
-export const uiState = (path: string | string[]): Selector => {
-  return (state: State, props: any) => {
+export const uiState = (path: Path): Selector => {
+  return (state: State) => {
     return get(state.hypract.ui, path)
   }
 }
 
-export const stateOrProps = (path: string | string[]): Selector => {
+export const stateOrProps = (path: Path): Selector => {
   return (state: State, props: any) => {
     return get({ state, props }, path)
   }
 }
 
-export const props = (path: string | string[]): Selector => {
+export const props = (path: Path): Selector => {
   return (state: State, props: any) => {
     return get(props, path)
   }
 }
 
 export const value = (value: any): Selector => {
-  return (state: State, props: any) => {
+  return (state: State) => {
     return value
   }
 }
@@ -94,25 +94,46 @@ export interface SelectorMap {
   [key: string]: string | Selector
 }
 
-function mapStateToProps(props: SelectorMap) {
-  return (state: any, ownProps: any) => {
+export const object = <T>(selectors: SelectorMap): Selector<T> => {
+  return (state: State, props: any) => {
     const result = {}
-    Object.keys(props).forEach(key => {
-      const ownProp = ownProps[key]
-      const prop = props[key]
-      if (isString(prop)) {
-        result[prop] = isFunction(ownProp) ? ownProp(state, props) : ownProp
+
+    Object.keys(selectors).forEach(key => {
+      const selector = selectors[key]
+      if (isString(selector)) {
+        result[key] = props[key]
       } else {
-        result[key] = prop(state, props)
+        result[key] = selector(state, props)
       }
     })
 
-    return result
+    return result as T
   }
 }
 
-export function wrapInSelectors<O = any, I = any>(props: SelectorMap) {
+export const applySelectorMap = (selectors: SelectorMap, state: any, ownProps: any) => {
+  const result = {}
+  Object.keys(selectors).forEach(key => {
+    const prop = selectors[key]
+    if (isString(prop)) {
+      const ownProp = ownProps[prop]
+      result[key] = isFunction(ownProp) ? ownProp(state, ownProps) : ownProp
+    } else {
+      result[key] = prop(state, ownProps)
+    }
+  })
+
+  return result
+}
+
+const mapStateToProps = (selectors: SelectorMap) => {
+  return (state: any, ownProps: any) => {
+    return applySelectorMap(selectors, state, ownProps)
+  }
+}
+
+export const wrap = <O = any, I = any>(selectors: SelectorMap) => {
   return (comp: React.ComponentType<I>) => {
-    return connect(mapStateToProps(props))(comp) as React.ComponentClass<O>
+    return connect(mapStateToProps(selectors))(comp) as React.ComponentClass<O>
   }
 }

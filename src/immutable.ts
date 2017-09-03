@@ -1,6 +1,8 @@
 import { isObject } from 'lodash'
 import { get as dotGet, merge as dotMerge, set as dotSet } from 'dot-prop-immutable'
 
+export type Path = number | string | Array<number | string>
+
 /**
  * Get the nested value in the given object. Return undefined if does not exists.
  * 
@@ -8,7 +10,7 @@ import { get as dotGet, merge as dotMerge, set as dotSet } from 'dot-prop-immuta
  * @param path the property, e.g. 'child.name'
  * @return the value or undefined if the path doesn't exists in the object 
  */
-export const get = (object: any, path: number | string | Array<number | string>): any => {
+export const get = (object: any, path: Path): any => {
   return dotGet(object, path)
 }
 
@@ -23,7 +25,7 @@ export const get = (object: any, path: number | string | Array<number | string>)
  * @param val The value to merge into the target value.
  * @return the newly created object
  */
-export const mergeShallow = (object: any, path: number | string | Array<number | string>, val: any): any => {
+export const mergeShallow = (object: any, path: Path, val: any): any => {
   return dotMerge(object, path, val)
 }
 
@@ -42,7 +44,7 @@ const mergeObjectsDeep = (target, source) => {
   return output
 }
 
-export const mergeDeep = (object: any, path: number | string | Array<number | string>, value: any): any => {
+export const mergeDeep = (object: any, path: Path, value: any): any => {
   return set(object, path, mergeObjectsDeep(get(object, path), value))
 }
 
@@ -65,6 +67,6 @@ export const push = <T>(array: T[], ...val: T[]): T[] => {
  * @param value the value to set
  * @return the newly created object
  */
-export const set = (object: any, path: number | string | Array<number | string>, value: any): any => {
+export const set = (object: any, path: Path, value: any): any => {
   return dotSet(object, path, value)
 }

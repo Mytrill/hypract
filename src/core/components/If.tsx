@@ -1,20 +1,20 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import { ComponentProps } from '../../types';
-import { wrapInSelectors, Selector } from '../../selectors';
-import { elements } from '../../element';
+import { ComponentProps } from '../../types'
+import { wrap, Selector } from '../../selectors'
+import { elements } from '../../element'
 
 export interface IfProps {
-  condition: Selector;
+  condition: Selector
 }
 
 interface IfRawProps {
-  conditionMet: boolean;
+  conditionMet: boolean
 }
 
 const IfRaw = (props: IfRawProps & ComponentProps) => {
-  const { children, ...rest } = props;
-  return <div>{elements(children, rest)}</div>;
+  const { children, ...rest } = props
+  return <div>{elements(children, rest)}</div>
 }
 
-export const If = wrapInSelectors<IfProps>({ condition: 'conditionMet' })(IfRaw);
+export const If = wrap<IfProps>({ conditionMet: 'condition' })(IfRaw)
