@@ -1,7 +1,7 @@
 import { get } from '../immutable'
 
 import { EntitiesById, Query, PendingEditsByDatasource, QueryState } from './types'
-import { toString } from './utils'
+import { queryToString, isIdAttribute } from './utils'
 import { State } from '../reducer'
 
 export const selectData = (state: State, query: Query): EntitiesById | undefined => {
@@ -11,7 +11,7 @@ export const selectData = (state: State, query: Query): EntitiesById | undefined
     return entities
   }
 
-  if (query.where.attribute === 'id' || query.where.attribute === '_id') {
+  if (isIdAttribute(query.where.attribute)) {
     if (!query.where.equals) {
       throw new Error('Cannot query where id === undefined')
     }
@@ -33,5 +33,5 @@ export const selectPendingEdits = (state: State): PendingEditsByDatasource => {
 }
 
 export const selectQueryState = (state: State, query: Query): QueryState | undefined => {
-  return get(state, ['hypract', 'entities', 'queries', toString(query)])
+  return get(state, ['hypract', 'entities', 'queries', queryToString(query)])
 }

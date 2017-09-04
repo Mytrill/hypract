@@ -2,7 +2,7 @@ import { Action } from '../../actions'
 import { set } from '../../immutable'
 import * as actions from '../actions'
 import { QueryStatesByType } from '../types'
-import { toString } from '../utils'
+import { queryToString } from '../utils'
 
 // # State
 
@@ -15,13 +15,13 @@ export const reducer = (initialState: State = {}) => {
     switch (action.type) {
       case actions.QUERY_ACTION:
         const qap = action.payload as actions.QueryActionPayload
-        return set(state, [qap.entityType, toString(qap)], { done: false, success: false })
+        return set(state, [qap.entityType, queryToString(qap)], { done: false, success: false })
       case actions.QUERY_ACTION_SUCCESS:
         const qasp = action.payload as actions.QueryActionSuccessPayload
-        return set(state, [qap.entityType, toString(qasp.source)], { done: true, success: true })
+        return set(state, [qap.entityType, queryToString(qasp.source)], { done: true, success: true })
       case actions.QUERY_ACTION_ERROR:
         const qaep = action.payload as actions.QueryActionErrorPayload
-        return set(state, [qap.entityType, toString(qaep.source)], { done: true, success: false })
+        return set(state, [qap.entityType, queryToString(qaep.source)], { done: true, success: false })
     }
     return state
   }
