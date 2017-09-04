@@ -1,3 +1,19 @@
+import * as React from 'react';
+
+// # Components
+
+export interface ComponentProps {
+  children?: ReactNode;
+}
+
+export type ReactElement = React.ReactElement<any>;
+
+export type ReactNode = React.ReactNode;
+
+export type ReactComponent = React.ComponentType<any>;
+
+export type HypractComponent = ReactComponent | ReactNode;
+
 // # Data
 
 export interface EntitiesByType {
