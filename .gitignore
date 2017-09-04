@@ -1,10 +1,5 @@
 node_modules
 npm-debug.log
-dist
-lib
-lib-esm
-examples/npm-debug.log
-examples/firebase-debug.log
-examples/public/bundle.js
+_new
 _old
 _src

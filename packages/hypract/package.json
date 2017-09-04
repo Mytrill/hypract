@@ -1,0 +1,22 @@
+{
+  "name": "hypract",
+  "version": "0.0.6",
+  "description":
+    "Hyper productive reducers, action creators, selectors and components for Firebase built with preact and redux",
+  "license": "MIT",
+  "main": "dist/hypract.js",
+  "minified:main": "dist/hypract.min.js",
+  "es2015": "lib-esm/index.js",
+  "module": "lib/index.js",
+  "typings": "dist/hypract.d.ts",
+  "author": "Anthony Ferrando <ferrando.tony@gmail.com>",
+  "homepage": "https://github.com/Mytrill/hypract",
+  "bugs": {
+    "url": "https://github.com/Mytrill/hypract/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mytrill/hypract.git"
+  },
+  "files": ["src", "dist", "lib", "lib-esm"]
+}

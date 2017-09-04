@@ -1,24 +1,14 @@
 {
-  "name": "hypract",
+  "name": "hypract-internal",
+  "private": true,
   "version": "0.0.6",
-  "description": "Hyper productive reducers, action creators, selectors and components for Firebase built with preact and redux",
-  "license": "MIT",
-  "main": "dist/hypract.js",
-  "minified:main": "dist/hypract.min.js",
-  "es2015": "lib-esm/index.js",
-  "module": "lib/index.js",
-  "typings": "dist/hypract.d.ts",
   "author": "Anthony Ferrando <ferrando.tony@gmail.com>",
   "homepage": "https://github.com/Mytrill/hypract",
   "bugs": {
     "url": "https://github.com/Mytrill/hypract/issues"
   },
   "scripts": {
-    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && npm run build:dts",
-    "build:dts": "dts-bundle --name hypract --main lib/index.d.ts --baseDir lib --out ../dist/hypract.d.ts",
-    "build:profile": "webpack --env=profile",
-    "clean": "shx rm -rf dist lib lib-esm",
-    "test": "jest"
+    "build": ""
   },
   "dependencies": {
     "@types/react": "15.6.2",
@@ -51,12 +41,6 @@
     "type": "git",
     "url": "https://github.com/Mytrill/hypract.git"
   },
-  "files": [
-    "src",
-    "dist",
-    "lib",
-    "lib-esm"
-  ],
   "prettier": {
     "printWidth": 120,
     "singleQuote": true,
@@ -67,12 +51,6 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
   }
 }
