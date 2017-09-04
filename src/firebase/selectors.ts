@@ -21,7 +21,7 @@ import { Query, SingleQueryState } from './types'
 export const selectQueryResults = (state: State, path: string[], query: Query): any => {
   // console.log('Query Selector', state);
 
-  const data = get(state.hypract.firebase.database, path)
+  const data = get(state.hypract.firebase.data, path)
 
   if (query.where && query.equals) {
     if (typeof data !== 'object') {
