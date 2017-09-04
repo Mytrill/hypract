@@ -1,8 +1,7 @@
 {
   "name": "hypract",
   "version": "0.0.6",
-  "description":
-    "Hyper productive reducers, action creators, selectors and components for Firebase built with preact and redux",
+  "description": "Hyper productive reducers, action creators, selectors and components for Firebase built with preact and redux",
   "license": "MIT",
   "main": "dist/hypract.js",
   "minified:main": "dist/hypract.min.js",
@@ -39,6 +38,7 @@
     "awesome-typescript-loader": "^3.2.3",
     "dts-bundle": "0.7.3",
     "jest": "^20.0.4",
+    "lerna": "^2.1.2",
     "npm-run-all": "^4.0.2",
     "shx": "^0.2.2",
     "ts-jest": "^20.0.14",
@@ -51,7 +51,12 @@
     "type": "git",
     "url": "https://github.com/Mytrill/hypract.git"
   },
-  "files": ["src", "dist", "lib", "lib-esm"],
+  "files": [
+    "src",
+    "dist",
+    "lib",
+    "lib-esm"
+  ],
   "prettier": {
     "printWidth": 120,
     "singleQuote": true,
@@ -62,6 +67,12 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }
