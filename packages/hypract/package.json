@@ -18,5 +18,9 @@
     "type": "git",
     "url": "https://github.com/Mytrill/hypract.git"
   },
+  "rollup": {
+    "globals": {},
+    "external": []
+  },
   "files": ["src", "dist", "lib", "lib-esm"]
 }

@@ -8,7 +8,15 @@
     "url": "https://github.com/Mytrill/hypract/issues"
   },
   "scripts": {
-    "build": ""
+    "clean": "lerna exec -- shx rm -rf dist",
+    "prebuild": "npm run clean",
+    "postbuild": "lerna exec -- shx rm -rf build .rpt2_cache",
+    "build": "npm-run-all build:**",
+    "build:umd": "npm run rollup",
+    "build:umd:prod": "npm run rollup -- --suffix=.min --env=production --uglify=true",
+    "build:es": "npm run rollup -- --format=es --suffix=.es --target=es6",
+    "build:module": "npm run rollup -- --format=es --suffix=.module",
+    "rollup": "lerna exec -- node ../../scripts/build.js"
   },
   "dependencies": {
     "@types/react": "15.6.2",
@@ -25,17 +33,19 @@
   "devDependencies": {
     "@types/jest": "^20.0.8",
     "@types/lodash": "4.14.73",
-    "awesome-typescript-loader": "^3.2.3",
     "dts-bundle": "0.7.3",
     "jest": "^20.0.4",
     "lerna": "^2.1.2",
-    "npm-run-all": "^4.0.2",
+    "minimist": "^1.2.0",
+    "npm-run-all": "4.1.1",
+    "rollup": "^0.49.2",
+    "rollup-plugin-commonjs": "^8.2.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.5.2",
+    "rollup-plugin-uglify": "^2.0.1",
     "shx": "^0.2.2",
     "ts-jest": "^20.0.14",
-    "ts-loader": "2.3.2",
-    "typescript": "2.4.2",
-    "webpack": "3.4.1",
-    "webpack-bundle-analyzer": "^2.9.0"
+    "typescript": "2.4.2"
   },
   "repository": {
     "type": "git",

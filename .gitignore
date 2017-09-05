@@ -1,5 +1,4 @@
 node_modules
 npm-debug.log
-_new
-_old
-_src
+packages/*/dist
+_ignore
