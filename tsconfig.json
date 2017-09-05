@@ -12,5 +12,6 @@
     "removeComments": true,
     "lib": ["es6", "es2017", "dom"]
   },
-  "include": ["packages/*/src"]
+  "include": ["packages/*/src"],
+  "exclude": ["_ignore"]
 }

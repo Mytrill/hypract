@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 
-import { ComponentProps } from '../../types'
-import { elements } from '../../element'
+import { ComponentProps } from '../types'
+import { elements } from '../element'
 
 export interface ElseProps {
   conditionMet?: any

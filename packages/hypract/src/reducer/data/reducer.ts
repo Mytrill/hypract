@@ -1,7 +1,6 @@
-import { Action } from '../../actions'
-import * as actions from '../actions'
+import * as actions from '../../actions'
 import { get, mergeDeep, set } from '../../immutable'
-import { Edit, EntitiesById, EntitiesByType } from '../types'
+import { Edit, EntitiesById, EntitiesByType } from '../../types'
 
 // # State
 
@@ -145,7 +144,10 @@ const makeEditsIrreversible = (state: State, edits: Edit[]): State => {
   return mergeDeep(state, [], toMerge)
 }
 
-export const reducer = (initialState: State = {}) => (state: State = initialState, action: Action<any>): State => {
+export const reducer = (initialState: State = {}) => (
+  state: State = initialState,
+  action: actions.Action<any>
+): State => {
   switch (action.type) {
     case actions.C_UD_ACTION_SUCCESS:
       const cudp = action.payload as actions.C_UDActionSuccessPayload

@@ -1,8 +1,7 @@
-import { Action } from '../../actions'
+import * as actions from '../../actions'
 import { set } from '../../immutable'
-import * as actions from '../actions'
-import { QueryStatesByType } from '../types'
-import { queryToString } from '../utils'
+import { QueryStatesByType } from '../../types'
+import { queryToString } from '../../utils'
 
 // # State
 
@@ -11,7 +10,7 @@ export type State = QueryStatesByType
 // # reducer
 
 export const reducer = (initialState: State = {}) => {
-  return (state: State = initialState, action: Action<any>): State => {
+  return (state: State = initialState, action: actions.Action<any>): State => {
     switch (action.type) {
       case actions.QUERY_ACTION:
         const qap = action.payload as actions.QueryActionPayload

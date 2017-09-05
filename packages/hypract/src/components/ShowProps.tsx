@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 
-import { PropSelectorOr, Eval } from '../../propSelectors'
-import { get, Path } from '../../immutable'
-import { ComponentProps } from '../../types'
-import { element } from '../../element'
+import { PropSelectorOr, Eval } from '../propSelectors'
+import { get, Path } from '../immutable'
+import { ComponentProps } from '../types'
+import { element } from '../element'
 
 export interface ShowPropsProps {
   title?: PropSelectorOr<string>

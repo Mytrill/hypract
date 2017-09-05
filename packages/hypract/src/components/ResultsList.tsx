@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { sortBy } from 'lodash'
 
-import { element } from '../../element'
-import { PropSelectorOrArray, Eval } from '../../propSelectors'
-import { HypractComponent, ComponentProps } from '../../types'
+import { element } from '../element'
+import { PropSelectorOrArray, Eval } from '../propSelectors'
+import { HypractComponent, ComponentProps } from '../types'
 
 export interface ResultsListProps {
   orderBy?: PropSelectorOrArray<string>

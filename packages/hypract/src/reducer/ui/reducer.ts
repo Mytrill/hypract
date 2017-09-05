@@ -1,7 +1,6 @@
-import { set } from '../immutable'
+import { set } from '../../immutable'
 
-import { Action } from '../actions'
-import { SET_UI_STATE } from './actions'
+import { Action, SET_UI_STATE } from '../../actions'
 
 export type State = any
 

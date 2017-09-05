@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { SelectorMap, wrap } from '../../selectors'
-import { ComponentProps } from '../../types'
-import { elements } from '../../element'
+import { SelectorMap, wrap } from '../selectors'
+import { ComponentProps } from '../types'
+import { elements } from '../element'
 
 export interface SelectProps {
   selectors: SelectorMap

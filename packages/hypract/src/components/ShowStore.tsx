@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { get, Path } from '../../immutable'
 
-import { PropSelectorOr, Eval } from '../../propSelectors'
-import { ComponentProps } from '../../types'
-import { element } from '../../element'
+import { PropSelectorOr, Eval } from '../propSelectors'
+import { ComponentProps } from '../types'
+import { get, Path } from '../immutable'
+import { element } from '../element'
 
 export interface ShowStoreProps {
   title?: PropSelectorOr<string>

@@ -6,7 +6,6 @@ import * as datasources from './datasources'
 import { selectPendingEdits, selectQueryState } from './selectors'
 import { Create, Query, Update, Delete, Edit, EntitiesById } from './types'
 
-
 // # General
 
 export interface Action<P = any> {
@@ -81,6 +80,7 @@ export const C_UD_ACTION_ERROR = 'hypract/data/C_UD_ACTION_ERROR'
 export const COMMIT_ACTION = 'hypract/data/COMMIT_ACTION'
 export const COMMIT_ACTION_SUCCESS = 'hypract/data/COMMIT_ACTION_SUCCESS'
 export const COMMIT_ACTION_ERROR = 'hypract/data/COMMIT_ACTION_ERROR'
+export const SET_UI_STATE = 'hypract/ui/SET_UI_STATE'
 
 // # Actions
 
@@ -254,3 +254,12 @@ export const commit = (payload: CommitActionPayload) => {
       })
   }
 }
+
+// ### UI
+
+export interface SetUiStatePayload {
+  path: string | string[]
+  value: any
+}
+
+export const setUiState = actionCreator<SetUiStatePayload>(SET_UI_STATE)

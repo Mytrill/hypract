@@ -1,18 +1,18 @@
-import * as React from 'react';
+import React from 'react'
 
 // # Components
 
 export interface ComponentProps {
-  children?: ReactNode;
+  children?: ReactNode
 }
 
-export type ReactElement = React.ReactElement<any>;
+export type ReactElement = React.ReactElement<any>
 
-export type ReactNode = React.ReactNode;
+export type ReactNode = React.ReactNode
 
-export type ReactComponent = React.ComponentType<any>;
+export type ReactComponent = React.ComponentType<any>
 
-export type HypractComponent = ReactComponent | ReactNode;
+export type HypractComponent = ReactComponent | ReactNode
 
 // # Data
 

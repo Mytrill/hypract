@@ -1,6 +1,6 @@
-import { PropSelectorOr, Eval } from '../../propSelectors'
-import { ComponentProps } from '../../types'
-import { element } from '../../element'
+import { PropSelectorOr, Eval } from '../propSelectors'
+import { ComponentProps } from '../types'
+import { element } from '../element'
 
 export interface SetPageTitleProps {
   title: PropSelectorOr<string>

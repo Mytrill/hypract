@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { applySelectorMap, PropSelectorMap } from '../../propSelectors'
-import { ComponentProps } from '../../types'
-import { elements } from '../../element'
+import { applySelectorMap, PropSelectorMap } from '../propSelectors'
+import { ComponentProps } from '../types'
+import { elements } from '../element'
 
 export interface SelectFromPropsProps {
   selectors: PropSelectorMap

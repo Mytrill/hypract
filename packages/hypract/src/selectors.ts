@@ -1,17 +1,11 @@
-
-import { get } from '../immutable'
-
-import { EntitiesById, Query, PendingEditsByDatasource, QueryState } from './types'
-import { queryToString, isIdAttribute } from './utils'
-import { State } from '../reducer'
-
 import React from 'react'
 import { connect } from 'react-redux'
 import { isFunction, isString, isUndefined } from 'lodash'
 
+import { EntitiesById, Query, PendingEditsByDatasource, QueryState } from './types'
+import { queryToString, isIdAttribute } from './utils'
 import { get, Path } from './immutable'
-
-import { State } from './reducer'
+import { State } from './rootReducer'
 
 export interface Selector<T = any> {
   (state: State, props?: any): T

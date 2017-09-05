@@ -2,12 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { State } from '../../reducer'
+import { State } from '../reducer'
+import { element } from '../element'
 import * as actions from '../actions'
 import { selectQueryState } from '../selectors'
-import { Query, QueryState } from '../types'
-import { ComponentProps } from '../../types'
-import { element } from '../../element'
+import { ComponentProps, Query, QueryState } from '../types'
 
 export interface ExecuteQueryProps {
   query: Query

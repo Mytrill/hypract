@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Query, EntitiesById } from '../types'
-import { State } from '../../reducer'
-import { element } from '../../element'
-import { ComponentProps } from '../../types'
+import { ComponentProps, Query, EntitiesById } from '../types'
+import { State } from '../reducer'
+import { element } from '../element'
 import { selectData } from '../selectors'
 
 export interface QueryResultsProps {

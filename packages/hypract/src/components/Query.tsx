@@ -3,9 +3,9 @@ import { isEqual, isFunction } from 'lodash'
 
 import { QueryResults } from './QueryResults'
 import { ExecuteQuery } from './ExecuteQuery'
-import { PropSelector } from '../../propSelectors'
+import { PropSelector } from '../propSelectors'
 import { Query as EntityQuery, Where } from '../types'
-import { element } from '../../element'
+import { element } from '../element'
 
 export interface QueryProps {
   datasource: string
