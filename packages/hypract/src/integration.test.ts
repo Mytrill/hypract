@@ -1,8 +1,8 @@
 import { applyMiddleware, createStore, Reducer, combineReducers, Store } from 'redux'
 
 import * as entities from './reducer'
-import { thunk, logger } from '../middlewares'
-import { c_ud, edits } from './actions'
+import { thunk, logger } from './middlewares'
+import { c_ud, edits, Action } from './actions'
 import { NOOP } from './datasources'
 
 interface State {

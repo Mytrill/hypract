@@ -2,7 +2,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "declaration": false,
-    "target": "es5",
+    "target": "es6",
     "jsx": "react",
     "module": "es6",
     "moduleResolution": "node",

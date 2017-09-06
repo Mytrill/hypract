@@ -1,7 +1,7 @@
 import { isEmpty, isFunction } from 'lodash'
 import { Dispatch, Store } from 'redux'
 
-import { State } from './reducer'
+import { State } from './rootReducer'
 import * as datasources from './datasources'
 import { selectPendingEdits, selectQueryState } from './selectors'
 import { Create, Query, Update, Delete, Edit, EntitiesById } from './types'

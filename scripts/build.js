@@ -6,6 +6,7 @@ const commonjs = require('rollup-plugin-commonjs')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const typescript = require('rollup-plugin-typescript2')
 const replace = require('rollup-plugin-replace')
+const babel = require('rollup-plugin-babel')
 const uglify = require('rollup-plugin-uglify')
 
 // current working directory & package.json for package
@@ -41,10 +42,35 @@ const createPlugins = function() {
       extensions: ['.ts', '.js', '.json'],
       jsnext: true
     }),
-    commonjs({ include: 'node_modules/**' }),
+    commonjs(),
     typescript({
       tsconfig: '../../tsconfig.json',
       clean: true
+    }),
+    babel({
+      // pass in the options here with babelrc = false to compile preact (which has the babel configuration in its package.json...)
+      babelrc: false,
+      plugins: [
+        [
+          'module-resolver',
+          {
+            alias: {
+              react: 'preact-compat',
+              'react-dom': 'preact-compat',
+              lodash: 'lodash-es'
+            }
+          }
+        ],
+        'external-helpers'
+      ],
+      presets: [
+        [
+          'es2015',
+          {
+            modules: false
+          }
+        ]
+      ]
     }),
     replace({ 'process.env.NODE_ENV': options.env })
   ]
@@ -76,5 +102,4 @@ rollup({
   .catch(error => {
     console.error(`Build of ${pkgJSON.name} in ${options.format} FAILED: ${error.message}`)
     console.error(error)
-    exit(-1)
   })

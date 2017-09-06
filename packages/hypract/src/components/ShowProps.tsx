@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { PropSelectorOr, Eval } from '../propSelectors'
-import { get, Path } from '../immutable'
 import { ComponentProps } from '../types'
+import { get, Path } from '../immutable'
 import { element } from '../element'
 
 export interface ShowPropsProps {

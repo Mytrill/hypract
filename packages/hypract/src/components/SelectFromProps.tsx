@@ -10,5 +10,5 @@ export interface SelectFromPropsProps {
 }
 
 export const SelectFromProps = ({ selectors, children, ...rest }: SelectFromPropsProps & ComponentProps) => {
-  return <div>{elements(this.props.children, rest, applySelectorMap(selectors, rest))}</div>
+  return <div>{elements(children, rest, applySelectorMap(selectors, rest))}</div>
 }

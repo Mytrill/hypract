@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { ComponentProps, Query, EntitiesById } from '../types'
-import { State } from '../reducer'
+import { State } from '../rootReducer'
 import { element } from '../element'
 import { selectData } from '../selectors'
 

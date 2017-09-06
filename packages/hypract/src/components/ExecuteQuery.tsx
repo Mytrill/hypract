@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { State } from '../reducer'
+import { State } from '../rootReducer'
 import { element } from '../element'
 import * as actions from '../actions'
 import { selectQueryState } from '../selectors'
