@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { mapValues } from 'lodash'
+import mapValues from 'lodash/mapValues'
 import { applyMiddleware, createStore, Reducer, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 

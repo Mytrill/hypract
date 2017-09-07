@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { isFunction, isString, isUndefined } from 'lodash'
+import isString from 'lodash/isString'
+import isFunction from 'lodash/isFunction'
+import isUndefined from 'lodash/isUndefined'
 
 import { EntitiesById, Query, PendingEditsByDatasource, QueryState } from './types'
 import { queryToString, isIdAttribute } from './utils'

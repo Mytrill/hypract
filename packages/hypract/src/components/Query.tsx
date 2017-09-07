@@ -1,5 +1,6 @@
 import React from 'react'
-import { isEqual, isFunction } from 'lodash'
+import isEqual from 'lodash/isEqual'
+import isFunction from 'lodash/isFunction'
 
 import { QueryResults } from './QueryResults'
 import { ExecuteQuery } from './ExecuteQuery'

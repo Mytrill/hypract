@@ -1,5 +1,5 @@
 import React from 'react'
-import { sortBy } from 'lodash'
+import sortBy from 'lodash/sortBy'
 
 import { element } from '../element'
 import { PropSelectorOrArray, Eval } from '../propSelectors'

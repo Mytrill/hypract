@@ -1,4 +1,5 @@
-import { isEmpty, isFunction } from 'lodash'
+import isEmpty from 'lodash/isEmpty'
+import isFunction from 'lodash/isFunction'
 import { Dispatch, Store } from 'redux'
 
 import { State } from './rootReducer'

@@ -1,5 +1,10 @@
 import React from 'react'
-import { isArray, isBoolean, isEmpty, isFunction, isNil, isNumber, isObject, isString } from 'lodash'
+
+import isArray from 'lodash/isArray'
+import isEmpty from 'lodash/isEmpty'
+import isNil from 'lodash/isNil'
+import isString from 'lodash/isString'
+import isFunction from 'lodash/isFunction'
 
 import { HypractComponent, ReactComponent, ReactElement } from './types'
 

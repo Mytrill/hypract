@@ -1,5 +1,11 @@
 import React from 'react'
-import { isArray, isFunction, isNil, isString, isUndefined, toString } from 'lodash'
+
+import isArray from 'lodash/isArray'
+import isNil from 'lodash/isNil'
+import isString from 'lodash/isString'
+import isFunction from 'lodash/isFunction'
+import isUndefined from 'lodash/isUndefined'
+import toString from 'lodash/toString'
 
 import { get, Path } from './immutable'
 

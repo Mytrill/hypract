@@ -1,4 +1,4 @@
-import { isObject } from 'lodash'
+import isObject from 'lodash/isObject'
 import { get as dotGet, merge as dotMerge, set as dotSet } from 'dot-prop-immutable'
 
 export type Path = number | string | Array<number | string>
