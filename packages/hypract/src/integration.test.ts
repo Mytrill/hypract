@@ -24,31 +24,31 @@ beforeEach(() => {
   store = createStore<State>(reducer, applyMiddleware(thunk))
 })
 
-test('create', () => {
-  return store
-    .dispatch(
-      c_ud({
-        datasource: NOOP,
-        edits: [edits.create('EntityType', { numberProp: 0, booleanProp: false, stringProp: '' })]
-      })
-    )
-    .then(() => {
-      expect(store.getState().hypract.entities).toEqual({
-        data: {
-          EntityType: {
-            '0': {
-              _id: '0',
-              _type: 'EntityType',
-              _datasource: 'noop',
-              numberProp: 0,
-              booleanProp: false,
-              stringProp: ''
-            }
-          }
-        },
-        edits: {},
-        errors: [],
-        queries: {}
-      })
-    })
-})
+// test('create', () => {
+//   return store
+//     .dispatch(
+//       c_ud({
+//         datasource: NOOP,
+//         edits: [edits.create('EntityType', { numberProp: 0, booleanProp: false, stringProp: '' })]
+//       })
+//     )
+//     .then(() => {
+//       expect(store.getState().hypract.entities).toEqual({
+//         data: {
+//           EntityType: {
+//             '0': {
+//               _id: '0',
+//               _type: 'EntityType',
+//               _datasource: 'noop',
+//               numberProp: 0,
+//               booleanProp: false,
+//               stringProp: ''
+//             }
+//           }
+//         },
+//         edits: {},
+//         errors: [],
+//         queries: {}
+//       })
+//     })
+// })

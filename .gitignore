@@ -1,5 +1,7 @@
 node_modules
 npm-debug.log
 packages/*/dist
+packages/*/lib
+packages/*/lib-es
 packages/*/.rpt2_cache
 _ignore

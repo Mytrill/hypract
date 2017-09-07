@@ -2,11 +2,11 @@
   "compilerOptions": {
     "sourceMap": true,
     "declaration": false,
-    "target": "es6",
+    "target": "es5",
     "jsx": "react",
     "module": "es6",
     "moduleResolution": "node",
-    "outDir": "build",
+    "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "removeComments": true,

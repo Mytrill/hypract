@@ -4,10 +4,10 @@ const minimist = require('minimist')
 
 const commonjs = require('rollup-plugin-commonjs')
 const nodeResolve = require('rollup-plugin-node-resolve')
-const typescript = require('rollup-plugin-typescript2')
 const replace = require('rollup-plugin-replace')
 const babel = require('rollup-plugin-babel')
 const uglify = require('rollup-plugin-uglify')
+const analyze = require('rollup-analyzer-plugin')
 
 // current working directory & package.json for package
 const cwd = process.cwd()
@@ -43,10 +43,6 @@ const createPlugins = function() {
       jsnext: true
     }),
     commonjs(),
-    typescript({
-      tsconfig: '../../tsconfig.json',
-      clean: true
-    }),
     babel({
       // pass in the options here with babelrc = false to compile preact (which has the babel configuration in its package.json...)
       babelrc: false,
@@ -78,11 +74,15 @@ const createPlugins = function() {
   if (options.uglify) {
     plugins.push(uglify())
   }
+
+  // disable for now
+  // plugins.push(analyze({ limit: 10 }))
+
   return plugins
 }
 
 rollup({
-  input: join(cwd, 'src/index.ts'),
+  input: join(cwd, 'lib-es/index.js'),
   // must explicitly add bundled dependencies in package.json
   external: rollupConfig.external || [],
   plugins: createPlugins()
