@@ -11,11 +11,13 @@
     "clean": "lerna exec -- shx rm -rf dist lib lib-es .rpt2_cache",
     "prebuild": "npm run clean",
     "postbuild": "lerna exec -- shx rm -rf .rpt2_cache",
-    "build": "npm-run-all build:es build:module build:umd build:umd:prod",
+    "build": "npm-run-all build:es build:module build:umd build:umd:prod buil:dts",
     "build:es": "lerna exec -- tsc --outDir lib-es --target es6",
     "build:module": "lerna exec -- tsc --outDir lib",
     "build:umd": "npm run rollup",
     "build:umd:prod": "npm run rollup -- --suffix=.min --env=production --uglify=true",
+    "build:dts":
+      "lerna exec -- dts-bundle --name hypract --main lib-es/index.d.ts --baseDir lib-es --out ../dist/hypract.d.ts",
     "rollup": "lerna exec -- node ../../scripts/build.js"
   },
   "dependencies": {
