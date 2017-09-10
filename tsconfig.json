@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "hypract": ["packages/hypact/src"]
+    },
     "sourceMap": true,
     "declaration": true,
-    "target": "es5",
+    "target": "es6",
     "jsx": "react",
     "module": "es6",
     "moduleResolution": "node",
-    "outDir": "lib",
+    "outDir": "build",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "removeComments": true,
