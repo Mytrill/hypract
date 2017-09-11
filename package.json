@@ -12,25 +12,12 @@
     "prebuild": "npm run clean",
     "postbuild": "lerna exec -- shx rm -rf .rpt2_cache",
     "build": "npm-run-all build:es build:module build:umd build:umd:prod build:dts",
-    "build:es": "npm run rollup -- --suffix=.es --format=es --babel=false --excludeDeps=true",
-    "build:module": "npm run rollup -- --suffix=.module --format=es --excludeDeps=true",
+    "build:es": "npm run clean && npm run rollup -- --suffix=.es --format=es --babel=false",
+    "build:module": "npm run rollup -- --suffix=.module --format=es",
     "build:umd": "npm run rollup",
     "build:umd:prod": "npm run rollup -- --suffix=.min --env=production --uglify=true",
     "build:dts": "lerna exec -- node ../../scripts/build-typings.js",
     "rollup": "lerna exec -- node ../../scripts/build.js"
-  },
-  "dependencies": {
-    "@types/react": "15.6.2",
-    "@types/react-dom": "15.5.4",
-    "@types/react-redux": "5.0.5",
-    "@types/redux-form": "7.0.3",
-    "dot-prop-immutable": "1.3.1",
-    "lodash-es": "4.17.4",
-    "preact": "8.2.1",
-    "preact-compat": "3.17.0",
-    "react-redux": "5.0.6",
-    "redux": "3.7.2",
-    "redux-thunk": "2.2.0"
   },
   "devDependencies": {
     "@types/jest": "20.0.8",
@@ -57,7 +44,7 @@
     "rollup-plugin-uglify": "2.0.1",
     "shx": "0.2.2",
     "ts-jest": "20.0.14",
-    "typescript": "2.4.2"
+    "typescript": "^2.5.2"
   },
   "repository": {
     "type": "git",
@@ -73,6 +60,12 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }

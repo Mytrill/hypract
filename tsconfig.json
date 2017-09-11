@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
-      "hypract": ["packages/hypact/src"]
+      "hypract": ["packages/hypact/src"],
+      "hypract-firebase-rest": ["packages/hypact-firebase-rest/src"]
     },
     "sourceMap": true,
     "declaration": true,
@@ -10,7 +12,7 @@
     "jsx": "react",
     "module": "es6",
     "moduleResolution": "node",
-    "outDir": "build",
+    "outDir": "dist",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "removeComments": true,

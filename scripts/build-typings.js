@@ -14,22 +14,15 @@ if (pkgJSON.private) {
 
 try {
   dts.bundle({
-    main: 'dist/index.d.ts',
+    main: `dist/packages/${pkgJSON.name}/src/index.d.ts`,
     baseDir: 'dist',
     name: pkgJSON.name,
     out: `./${pkgJSON.name}.d.ts`
   })
   console.log(`${pkgJSON.name} in typings is DONE`)
 
-  fs.readdirSync(path.join(cwd, 'dist')).forEach(file => {
-    const isDtsFile = file.endsWith('.d.ts')
-    const isOutputFile = file.endsWith(pkgJSON.name + '.d.ts')
-    const isFolder = !file.includes('.')
-    if (isFolder || (isDtsFile && !isOutputFile)) {
-      console.log('Deleting dist/' + file)
-      rimraf.sync(path.join('dist', file))
-    }
-  })
+  // delete temporary folder holding the typings
+  rimraf.sync('dist/packages')
 } catch (e) {
   throw Error(e)
 }

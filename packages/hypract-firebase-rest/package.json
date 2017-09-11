@@ -1,0 +1,31 @@
+{
+  "name": "hypract-firebase-rest",
+  "version": "0.0.6",
+  "description": "Reducers, action creators, selectors and components Hypract and firebase (using REST APIs only)",
+  "license": "MIT",
+  "main": "dist/hypract.js",
+  "minified:main": "dist/hypract.min.js",
+  "es2015": "lib-esm/index.js",
+  "module": "lib/index.js",
+  "typings": "dist/hypract.d.ts",
+  "author": "Anthony Ferrando <ferrando.tony@gmail.com>",
+  "homepage": "https://github.com/Mytrill/hypract",
+  "bugs": {
+    "url": "https://github.com/Mytrill/hypract/issues"
+  },
+  "dependencies": {
+    "hypract": "0.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mytrill/hypract.git"
+  },
+  "rollup": {
+    "esExternals": ["hypract"],
+    "umdGlobals": {
+      "hypract": "hypract"
+    },
+    "umdExternals": ["hypract"]
+  },
+  "files": ["src", "dist", "lib", "lib-esm"]
+}

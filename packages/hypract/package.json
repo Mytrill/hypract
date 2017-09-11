@@ -6,8 +6,8 @@
   "license": "MIT",
   "main": "dist/hypract.js",
   "minified:main": "dist/hypract.min.js",
-  "es2015": "lib-esm/index.js",
-  "module": "lib/index.js",
+  "es2015": "dist/hypract.es.js",
+  "module": "dist/hypract.module.js",
   "typings": "dist/hypract.d.ts",
   "author": "Anthony Ferrando <ferrando.tony@gmail.com>",
   "homepage": "https://github.com/Mytrill/hypract",
@@ -18,9 +18,40 @@
     "type": "git",
     "url": "https://github.com/Mytrill/hypract.git"
   },
+  "dependencies": {
+    "@types/react": "15.6.2",
+    "@types/react-dom": "15.5.4",
+    "@types/react-redux": "5.0.5",
+    "@types/redux-form": "7.0.3",
+    "dot-prop-immutable": "1.3.1",
+    "lodash-es": "4.17.4",
+    "preact": "8.2.1",
+    "preact-compat": "3.17.0",
+    "react-redux": "5.0.6",
+    "redux": "3.7.2",
+    "redux-thunk": "2.2.0"
+  },
   "rollup": {
-    "globals": {},
-    "external": []
+    "esExternals": [
+      "dot-prop-immutable",
+      "preact",
+      "preact-compat",
+      "react-redux",
+      "redux",
+      "redux-thunk",
+      "lodash/isArray",
+      "lodash/isEmpty",
+      "lodash/isEqual",
+      "lodash/isFunction",
+      "lodash/isNil",
+      "lodash/isObject",
+      "lodash/isString",
+      "lodash/isUndefined",
+      "lodash/mapValues",
+      "lodash/sortBy",
+      "lodash/toString"
+    ],
+    "umdExternals": []
   },
   "files": ["src", "dist", "lib", "lib-esm"]
 }

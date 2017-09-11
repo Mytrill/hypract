@@ -15,28 +15,18 @@ const analyze = require('rollup-analyzer-plugin')
 const cwd = process.cwd()
 const pkgJSON = require(join(cwd, 'package.json'))
 const ROOT = join(cwd, '../../')
-const rootPkgJSON = require(join(ROOT, 'package.json'))
 
 // may configure rollup in package.json with the key "rollup": {...}
 const rollupConfig = pkgJSON.rollup
-// const exampleRollupConfig = {
-//   // list of globals
-//   globals: {
-//     jQuery: '$'
-//   },
-//   // lift of modules to exclude from the bundle
-//   external: ['jQuery']
-// }
 
 const options = minimist(process.argv.slice(2), {
-  boolean: ['uglify', 'babel', 'excludeDeps'],
+  boolean: ['uglify', 'babel'],
   default: {
     env: 'development',
     format: 'umd',
     suffix: '',
     babel: true,
-    uglify: false,
-    excludeDeps: false
+    uglify: false
   }
 })
 
@@ -45,11 +35,11 @@ const getPlugins = function() {
   const plugins = [
     alias({
       // usage with preact
-      react: resolve(ROOT, 'node_modules/preact-compat/dist/preact-compat.es.js'),
-      'react-dom': resolve(ROOT, 'node_modules/preact-compat/dist/preact-compat.es.js'),
-      'create-react-class': resolve(ROOT, 'node_modules/preact-compat/lib/create-react-class.js'),
+      react: resolve(cwd, 'node_modules/preact-compat/dist/preact-compat.es.js'),
+      'react-dom': resolve(cwd, 'node_modules/preact-compat/dist/preact-compat.es.js'),
+      'create-react-class': resolve(cwd, 'node_modules/preact-compat/lib/create-react-class.js'),
       // hypract libraries
-      hypract: resolve(ROOT, 'packages/hypract/dist/index.es.js')
+      hypract: resolve(ROOT, 'packages/hypract/dist/hypract.es.js')
     }),
     nodeResolve({
       extensions: ['.ts', '.js', '.json'],
@@ -59,6 +49,8 @@ const getPlugins = function() {
     typescript({
       tsconfig: '../../tsconfig.json',
       clean: true,
+      // needed, otherwise the module resolution fails...
+      check: false,
       exclude: ['*.d.ts', '**/*.d.ts', '*.test.*', '**/*.test.*']
     })
   ]
@@ -106,24 +98,10 @@ const getPlugins = function() {
 }
 
 const getExternals = () => {
-  if (options.excludeDeps) {
-    const externals = [
-      'lodash/isArray',
-      'lodash/isEmpty',
-      'lodash/isEqual',
-      'lodash/isFunction',
-      'lodash/isNil',
-      'lodash/isObject',
-      'lodash/isString',
-      'lodash/isUndefined',
-      'lodash/mapValues',
-      'lodash/sortBy',
-      'lodash/toString'
-    ]
-    return externals.concat(Object.keys(pkgJSON.dependencies || {})).concat(Object.keys(rootPkgJSON.dependencies))
+  if (options.format === 'es') {
+    return rollupConfig.esExternals || []
   }
-
-  return rollupConfig.external || []
+  return rollupConfig.umdExternals || []
 }
 
 rollup({
@@ -138,13 +116,13 @@ rollup({
       sourcemap: true,
       format: options.format,
       name: pkgJSON.name,
-      globals: rollupConfig.globals || {}
+      globals: rollupConfig.umdGlobals || {}
     })
   })
   .then(() => {
-    console.info(`Build of ${pkgJSON.name} in ${options.format} SUCCESS`)
+    console.info(`Build of ${pkgJSON.name} in format ${options.format} SUCCEEDED`)
   })
   .catch(error => {
-    console.error(`Build of ${pkgJSON.name} in ${options.format} FAILED: ${error.message}`)
+    console.error(`Build of ${pkgJSON.name} in format ${options.format} FAILED: ${error.message}`)
     console.error(error)
   })
