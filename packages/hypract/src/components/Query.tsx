@@ -10,7 +10,7 @@ import { element } from '../element'
 
 export interface QueryProps {
   datasource: string
-  query?: UnresolvedQuery
+  query: UnresolvedQuery
 }
 
 export interface UnresolvedQuery {
