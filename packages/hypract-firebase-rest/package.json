@@ -1,6 +1,6 @@
 {
   "name": "hypract-firebase-rest",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Reducers, action creators, selectors and components Hypract and firebase (using REST APIs only)",
   "license": "MIT",
   "main": "dist/hypract-firebase-rest.js",
@@ -14,7 +14,7 @@
     "url": "https://github.com/Mytrill/hypract/issues"
   },
   "dependencies": {
-    "hypract": "^0.0.7"
+    "hypract": "^0.0.8"
   },
   "repository": {
     "type": "git",
